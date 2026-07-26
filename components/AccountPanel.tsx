@@ -52,9 +52,7 @@ export default function AccountPanel() {
 
   return (
     <>
-      {session && <RentalsPanel username={session.username} />}
-
-      <div className={`${session ? "mt-8" : "mt-10"} rounded-2xl border border-sand bg-white p-8`}>
+      <div className="mt-10 rounded-2xl border border-sand bg-white p-8">
         {session ? (
           <div>
             <div className="flex items-center gap-4">
@@ -168,6 +166,8 @@ export default function AccountPanel() {
           </div>
         )}
       </div>
+
+      {session && <RentalsPanel username={session.username} />}
 
       {session && <CategoryManager username={session.username} />}
 

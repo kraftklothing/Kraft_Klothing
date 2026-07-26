@@ -7,7 +7,12 @@ import LikeCategoryModal from "@/components/LikeCategoryModal";
 import { useAuth } from "@/components/AuthProvider";
 import { ensureAccountDefaults } from "@/lib/account";
 import { getAllDresses } from "@/lib/dresses";
-import { dislikeDress, likeDress } from "@/lib/preferences";
+import {
+  dislikeDress,
+  getDislikedIds,
+  getLikedIds,
+  likeDress,
+} from "@/lib/preferences";
 import { Dress } from "@/lib/types";
 
 export default function BrowseGrid() {
@@ -20,7 +25,8 @@ export default function BrowseGrid() {
   const [likeTarget, setLikeTarget] = useState<string | null>(null);
 
   function refresh() {
-    setDresses(getAllDresses());
+    const reviewed = new Set([...getLikedIds(), ...getDislikedIds()]);
+    setDresses(getAllDresses().filter((dress) => !reviewed.has(dress.id)));
   }
 
   useEffect(() => {
@@ -68,11 +74,16 @@ export default function BrowseGrid() {
   }
 
   if (dresses.length === 0) {
+    const hasInventory = getAllDresses().length > 0;
     return (
       <div className="mt-16 rounded-2xl border border-sand bg-white p-10 text-center">
-        <p className="font-serif text-xl text-espresso">No dresses listed yet</p>
+        <p className="font-serif text-xl text-espresso">
+          {hasInventory ? "You're all caught up" : "No dresses listed yet"}
+        </p>
         <p className="mt-2 text-sm text-espresso/60">
-          Check back soon for new inventory.
+          {hasInventory
+            ? "Liked and passed dresses are saved in your account."
+            : "Check back soon for new inventory."}
         </p>
       </div>
     );

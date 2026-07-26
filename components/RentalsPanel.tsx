@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Image from "next/image";
 import { getDressById } from "@/lib/dresses";
 import { formatMonth, getRentalsForUser } from "@/lib/rentals";
 import { Rental } from "@/lib/types";
@@ -87,21 +88,36 @@ function RentalGroup({
           {rentals.map((rental) => {
             const dress = getDressById(rental.dressId);
             const months = [...rental.months].sort().map(formatMonth).join(", ");
+            const thumb = dress?.images[0];
             return (
               <li
                 key={rental.id}
-                className="rounded-xl border border-sand px-4 py-3"
+                className="flex items-center gap-3 rounded-xl border border-sand px-4 py-3"
               >
-                <p className="text-sm font-medium text-espresso">
-                  {dress?.brand ?? "Dress"}
-                  {dress?.size ? ` · Size ${dress.size}` : ""}
-                </p>
-                <p className="mt-1 text-xs text-espresso/55">{months}</p>
-                {rental.pickupDate && (
-                  <p className="mt-0.5 text-xs text-espresso/45">
-                    Pickup: {rental.pickupDate}
+                <div className="min-w-0 flex-1">
+                  <p className="text-sm font-medium text-espresso">
+                    {dress?.brand ?? "Dress"}
+                    {dress?.size ? ` · Size ${dress.size}` : ""}
                   </p>
-                )}
+                  <p className="mt-1 text-xs text-espresso/55">{months}</p>
+                  {rental.pickupDate && (
+                    <p className="mt-0.5 text-xs text-espresso/45">
+                      Pickup: {rental.pickupDate}
+                    </p>
+                  )}
+                </div>
+                <div className="relative h-14 w-11 shrink-0 overflow-hidden rounded-md bg-sand">
+                  {thumb && (
+                    <Image
+                      src={thumb}
+                      alt={dress?.brand ? `${dress.brand} dress` : "Dress"}
+                      fill
+                      className="object-cover"
+                      unoptimized
+                      sizes="44px"
+                    />
+                  )}
+                </div>
               </li>
             );
           })}
