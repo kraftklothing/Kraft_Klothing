@@ -50,13 +50,7 @@ const SECTIONS = [
 export default function MainSections() {
   return (
     <section className="home-sections relative mx-auto max-w-4xl px-6 pb-14 pt-2 md:pb-20 md:pt-3">
-      <div className="text-center">
-        <h2 className="font-serif text-3xl font-semibold text-cocoa md:text-4xl">
-          What would you like to do?
-        </h2>
-      </div>
-
-      <div className="mt-8 divide-y divide-walnut/15 border-y border-walnut/15">
+      <div className="divide-y divide-walnut/15 border-y border-walnut/15">
         {SECTIONS.map((section, index) => (
           <Link
             key={section.href}
