@@ -2,18 +2,25 @@ import MainSections from "@/components/MainSections";
 
 export default function HomePage() {
   return (
-    <div className="text-home-brown">
-      <section className="border-b border-sand bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-sand/80 via-cream to-cream">
-        <div className="mx-auto max-w-6xl px-6 py-14 text-center md:py-20">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-terracotta">
+    <div className="home-shell text-cocoa">
+      <section className="home-hero relative overflow-hidden border-b border-walnut/15">
+        <div className="home-hero-glow pointer-events-none absolute inset-0" aria-hidden="true" />
+        <div className="home-hero-grain pointer-events-none absolute inset-0" aria-hidden="true" />
+
+        <div className="relative mx-auto flex min-h-[58vh] max-w-5xl flex-col items-center justify-center px-6 py-16 text-center md:min-h-[62vh] md:py-24">
+          <p className="home-fade-up font-serif text-5xl font-semibold tracking-tight text-cocoa md:text-7xl">
             Kraft Klothing
           </p>
-          <h1 className="mt-3 font-serif text-5xl font-bold leading-tight text-home-brown md:text-6xl">
+          <h1 className="home-fade-up home-delay-1 mt-5 font-sans text-sm font-medium uppercase tracking-[0.35em] text-walnut md:text-base">
             Rent · Wear · Return
           </h1>
-          <p className="mx-auto mt-4 max-w-md text-home-brown/70">
+          <p className="home-fade-up home-delay-2 mx-auto mt-5 max-w-md text-base leading-relaxed text-cocoa/70 md:text-lg">
             Best priced one-time wear fashion to save money and the environment
           </p>
+          <div
+            className="home-fade-up home-delay-3 mt-10 h-px w-16 bg-walnut/35"
+            aria-hidden="true"
+          />
         </div>
       </section>
 

@@ -16,7 +16,12 @@ const config: Config = {
         sage: "#8B9A7D",
         "home-brown": "#3D2314",
         "baby-blue": "#B8D4E8",
+        cocoa: "#2F1C12",
+        walnut: "#7A5230",
+        mocha: "#A67C52",
+        linen: "#E8DCCB",
       },
+
       fontFamily: {
         serif: ["var(--font-cormorant)", "Georgia", "serif"],
         sans: ["var(--font-dm-sans)", "system-ui", "sans-serif"],
