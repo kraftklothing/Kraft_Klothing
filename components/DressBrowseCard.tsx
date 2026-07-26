@@ -36,17 +36,10 @@ export default function DressBrowseCard({
         <p className="text-xs uppercase tracking-wider text-espresso/50">
           {dress.brand}
         </p>
-        <p className="mt-1 font-serif text-lg text-espresso">{dress.color}</p>
 
         <div className="mt-3 space-y-1 text-sm text-espresso/70">
           <p>
-            <span className="text-espresso/50">Color:</span> {dress.color}
-          </p>
-          <p>
             <span className="text-espresso/50">Size:</span> {dress.size}
-          </p>
-          <p>
-            <span className="text-espresso/50">Brand:</span> {dress.brand}
           </p>
           <p>
             <span className="text-espresso/50">Price:</span>{" "}

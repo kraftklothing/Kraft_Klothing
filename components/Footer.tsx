@@ -21,7 +21,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/browse" className="hover:text-terracotta">
-                  Build your ready to rent closet
+                  Browse dresses
                 </Link>
               </li>
               <li>

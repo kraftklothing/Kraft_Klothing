@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/components/AuthProvider";
 import CategoryManager from "@/components/CategoryManager";
 import PasswordInput from "@/components/PasswordInput";
+import RentalsPanel from "@/components/RentalsPanel";
 import { ensureAccountDefaults } from "@/lib/account";
 
 export default function AccountPanel() {
@@ -51,7 +52,9 @@ export default function AccountPanel() {
 
   return (
     <>
-      <div className="mt-10 rounded-2xl border border-sand bg-white p-8">
+      {session && <RentalsPanel username={session.username} />}
+
+      <div className={`${session ? "mt-8" : "mt-10"} rounded-2xl border border-sand bg-white p-8`}>
         {session ? (
           <div>
             <div className="flex items-center gap-4">
@@ -179,11 +182,6 @@ export default function AccountPanel() {
             href="/disliked"
             title="Disliked Dresses"
             description="Passed dresses — change your mind anytime"
-          />
-          <AccountLink
-            href="/browse"
-            title="Build your ready to rent closet"
-            description="Browse and review all listed dresses"
           />
           <AccountLink
             href="/about"

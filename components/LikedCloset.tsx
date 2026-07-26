@@ -35,6 +35,7 @@ export default function LikedCloset() {
   const [activeColorFilter, setActiveColorFilter] = useState<string>("all");
   const [editingCategories, setEditingCategories] = useState(false);
   const [editingFitLabels, setEditingFitLabels] = useState(false);
+  const [filtersOpen, setFiltersOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [rentTarget, setRentTarget] = useState<string | null>(null);
 
@@ -131,104 +132,117 @@ export default function LikedCloset() {
       </p>
 
       {mounted && (
-        <>
-          <div className="mt-6">
-            <FilterHeader
-              title="Filter by fit"
-              editing={editingFitLabels}
-              onEdit={() => setEditingFitLabels((v) => !v)}
-            />
-            {editingFitLabels && (
-              <InlineFilterEditor
-                items={fitLabelOptions}
-                onAdd={(name) => {
-                  addFitLabel(username, name);
-                  refresh();
-                }}
-                onDelete={(id) => {
-                  deleteFitLabel(username, id);
-                  refresh();
-                }}
-                placeholder="New fit label..."
-              />
-            )}
-            <div className="mt-2 flex flex-wrap gap-2">
-              <FilterTab
-                label="All"
-                active={activeFitFilter === "all"}
-                onClick={() => setActiveFitFilter("all")}
-              />
-              {fitLabelOptions.map((fl) => (
-                <FilterTab
-                  key={fl.id}
-                  label={fl.name}
-                  active={activeFitFilter === fl.id}
-                  onClick={() => setActiveFitFilter(fl.id)}
-                />
-              ))}
-            </div>
-          </div>
+        <div className="mt-6">
+          <button
+            type="button"
+            onClick={() => setFiltersOpen((open) => !open)}
+            className="rounded-full border border-sand bg-white px-5 py-2.5 text-sm font-medium text-espresso transition-colors hover:border-terracotta"
+            aria-expanded={filtersOpen}
+          >
+            Filters {filtersOpen ? "▴" : "▾"}
+          </button>
 
-          <div className="mt-4">
-            <FilterHeader
-              title="Filter by category"
-              editing={editingCategories}
-              onEdit={() => setEditingCategories((v) => !v)}
-            />
-            {editingCategories && (
-              <InlineFilterEditor
-                items={categories}
-                onAdd={(name) => {
-                  addCategory(username, name);
-                  refresh();
-                }}
-                onDelete={(id) => {
-                  deleteCategory(username, id);
-                  refresh();
-                }}
-                placeholder="New category..."
-              />
-            )}
-            <div className="mt-2 flex flex-wrap gap-2">
-              <FilterTab
-                label="All"
-                active={activeCategory === "all"}
-                onClick={() => setActiveCategory("all")}
-              />
-              {categories.map((cat) => (
-                <FilterTab
-                  key={cat.id}
-                  label={cat.name}
-                  active={activeCategory === cat.id}
-                  onClick={() => setActiveCategory(cat.id)}
+          {filtersOpen && (
+            <div className="mt-4 space-y-4">
+              <div>
+                <FilterHeader
+                  title="Filter by fit"
+                  editing={editingFitLabels}
+                  onEdit={() => setEditingFitLabels((v) => !v)}
                 />
-              ))}
-            </div>
-          </div>
-
-          {availableColors.length > 0 && (
-            <div className="mt-4">
-              <p className="mb-2 text-xs font-medium uppercase tracking-wider text-espresso/50">
-                Filter by color
-              </p>
-              <div className="flex flex-wrap gap-2">
-                <FilterTab
-                  label="All"
-                  active={activeColorFilter === "all"}
-                  onClick={() => setActiveColorFilter("all")}
-                />
-                {availableColors.map((color) => (
-                  <FilterTab
-                    key={color}
-                    label={color}
-                    active={activeColorFilter === color}
-                    onClick={() => setActiveColorFilter(color)}
+                {editingFitLabels && (
+                  <InlineFilterEditor
+                    items={fitLabelOptions}
+                    onAdd={(name) => {
+                      addFitLabel(username, name);
+                      refresh();
+                    }}
+                    onDelete={(id) => {
+                      deleteFitLabel(username, id);
+                      refresh();
+                    }}
+                    placeholder="New fit label..."
                   />
-                ))}
+                )}
+                <div className="mt-2 flex flex-wrap gap-2">
+                  <FilterTab
+                    label="All"
+                    active={activeFitFilter === "all"}
+                    onClick={() => setActiveFitFilter("all")}
+                  />
+                  {fitLabelOptions.map((fl) => (
+                    <FilterTab
+                      key={fl.id}
+                      label={fl.name}
+                      active={activeFitFilter === fl.id}
+                      onClick={() => setActiveFitFilter(fl.id)}
+                    />
+                  ))}
+                </div>
               </div>
+
+              <div>
+                <FilterHeader
+                  title="Filter by category"
+                  editing={editingCategories}
+                  onEdit={() => setEditingCategories((v) => !v)}
+                />
+                {editingCategories && (
+                  <InlineFilterEditor
+                    items={categories}
+                    onAdd={(name) => {
+                      addCategory(username, name);
+                      refresh();
+                    }}
+                    onDelete={(id) => {
+                      deleteCategory(username, id);
+                      refresh();
+                    }}
+                    placeholder="New category..."
+                  />
+                )}
+                <div className="mt-2 flex flex-wrap gap-2">
+                  <FilterTab
+                    label="All"
+                    active={activeCategory === "all"}
+                    onClick={() => setActiveCategory("all")}
+                  />
+                  {categories.map((cat) => (
+                    <FilterTab
+                      key={cat.id}
+                      label={cat.name}
+                      active={activeCategory === cat.id}
+                      onClick={() => setActiveCategory(cat.id)}
+                    />
+                  ))}
+                </div>
+              </div>
+
+              {availableColors.length > 0 && (
+                <div>
+                  <p className="mb-2 text-xs font-medium uppercase tracking-wider text-espresso/50">
+                    Filter by color
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <FilterTab
+                      label="All"
+                      active={activeColorFilter === "all"}
+                      onClick={() => setActiveColorFilter("all")}
+                    />
+                    {availableColors.map((color) => (
+                      <FilterTab
+                        key={color}
+                        label={color}
+                        active={activeColorFilter === color}
+                        onClick={() => setActiveColorFilter(color)}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           )}
-        </>
+        </div>
       )}
 
       {!mounted ? (
