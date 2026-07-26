@@ -20,15 +20,28 @@ export default function AboutPage() {
         Kraft Klothing is a peer-to-peer marketplace for renting dresses and
         one-time wear items. We connect people who need a stunning look for a
         special occasion with owners who have beautiful pieces sitting in their
-        closets.
+        closets. Ability to List your self to come with future updates!
       </p>
 
       <PolicySection title="How renting works">
         <ol className="list-decimal space-y-2 pl-5">
-          <li>Browse dresses and filter by size, style, and occasion.</li>
-          <li>Select your rental dates and send a request to the owner.</li>
-          <li>Once approved, arrange pickup or shipping.</li>
-          <li>Wear your look, then return it clean by the due date.</li>
+          <li>
+            Browse all inventory in &quot;Browse&quot; so you never miss an item
+            / new drop
+          </li>
+          <li>Like any piece you could ever see yourself wearing</li>
+          <li>
+            Dislike any piece that will never fit or you can never see yourself
+            wearing to clear out the apps clutter
+          </li>
+          <li>
+            Sort liked items by occasion so it is easy to decide what to rent
+            when an occasion is coming up
+          </li>
+          <li>
+            Rent with deposit, pickup, wear, drop off and get deposit (less
+            cleaning/damage costs) back.
+          </li>
         </ol>
       </PolicySection>
 
