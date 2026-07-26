@@ -67,6 +67,63 @@ export function cancelRental(rentalId: string): Rental | null {
   return removed;
 }
 
+export function getBookedMonthsForDressExcluding(
+  dressId: string,
+  excludeRentalId: string
+): string[] {
+  return getAllRentals()
+    .filter((r) => r.dressId === dressId && r.id !== excludeRentalId)
+    .flatMap((r) => r.months);
+}
+
+export function updateRental(
+  rentalId: string,
+  updates: { months: string[]; pickupDate: string }
+): Rental | { error: string } {
+  const rentals = getAllRentals();
+  const index = rentals.findIndex((r) => r.id === rentalId);
+  if (index === -1) return { error: "Rental not found." };
+
+  const current = rentals[index];
+  if (updates.months.length === 0) {
+    return { error: "Select at least one month." };
+  }
+  if (!updates.pickupDate) {
+    return { error: "Select a pickup date." };
+  }
+
+  const bookedElsewhere = getBookedMonthsForDressExcluding(
+    current.dressId,
+    rentalId
+  );
+  const conflict = updates.months.some((m) => bookedElsewhere.includes(m));
+  if (conflict) {
+    return { error: "One or more months are booked by someone else." };
+  }
+
+  const freedMonths = current.months.filter((m) => !updates.months.includes(m));
+  const updated: Rental = {
+    ...current,
+    months: [...updates.months].sort(),
+    pickupDate: updates.pickupDate,
+  };
+  rentals[index] = updated;
+  writeRentals(rentals);
+
+  if (freedMonths.length > 0) {
+    const notified = notifyAvailabilityAlerts(current.dressId, freedMonths);
+    if (notified.length > 0) {
+      window.dispatchEvent(
+        new CustomEvent("kraft-availability-notified", {
+          detail: { alerts: notified },
+        })
+      );
+    }
+  }
+
+  return updated;
+}
+
 export function getAllAvailabilityAlerts(): AvailabilityAlert[] {
   if (typeof window === "undefined") return [];
   try {

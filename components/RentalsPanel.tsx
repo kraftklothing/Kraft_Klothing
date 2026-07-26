@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
+import EditRentalModal from "@/components/EditRentalModal";
 import { getDressById } from "@/lib/dresses";
 import { cancelRental, formatMonth, getRentalsForUser } from "@/lib/rentals";
 import { AvailabilityAlert, Rental } from "@/lib/types";
@@ -28,6 +29,7 @@ function classifyRental(rental: Rental): RentalBucket {
 export default function RentalsPanel({ username }: RentalsPanelProps) {
   const [rentals, setRentals] = useState<Rental[]>([]);
   const [notice, setNotice] = useState("");
+  const [editing, setEditing] = useState<Rental | null>(null);
 
   function refresh() {
     setRentals(getRentalsForUser(username));
@@ -43,13 +45,10 @@ export default function RentalsPanel({ username }: RentalsPanelProps) {
       const alerts = detail?.alerts ?? [];
       if (alerts.length === 0) return;
       const summary = alerts
-        .map(
-          (alert) =>
-            `${alert.phone} (${formatMonth(alert.month)})`
-        )
+        .map((alert) => `${alert.phone} (${formatMonth(alert.month)})`)
         .join(", ");
       setNotice(
-        `Rental cancelled. Text alert sent for availability: ${summary}.`
+        `Dates updated. Text alert sent for availability: ${summary}.`
       );
     };
 
@@ -115,17 +114,29 @@ export default function RentalsPanel({ username }: RentalsPanelProps) {
         <RentalGroup
           title="Current"
           rentals={grouped.current}
-          canCancel
+          canManage
           onCancel={handleCancel}
+          onEdit={setEditing}
         />
         <RentalGroup
           title="Upcoming"
           rentals={grouped.upcoming}
-          canCancel
+          canManage
           onCancel={handleCancel}
+          onEdit={setEditing}
         />
         <RentalGroup title="Previous" rentals={grouped.previous} />
       </div>
+
+      <EditRentalModal
+        rental={editing}
+        open={!!editing}
+        onClose={() => setEditing(null)}
+        onSuccess={() => {
+          setNotice("Rental dates updated.");
+          refresh();
+        }}
+      />
     </div>
   );
 }
@@ -133,13 +144,15 @@ export default function RentalsPanel({ username }: RentalsPanelProps) {
 function RentalGroup({
   title,
   rentals,
-  canCancel = false,
+  canManage = false,
   onCancel,
+  onEdit,
 }: {
   title: string;
   rentals: Rental[];
-  canCancel?: boolean;
+  canManage?: boolean;
   onCancel?: (rentalId: string) => void;
+  onEdit?: (rental: Rental) => void;
 }) {
   return (
     <div>
@@ -170,14 +183,23 @@ function RentalGroup({
                       Pickup: {rental.pickupDate}
                     </p>
                   )}
-                  {canCancel && onCancel && (
-                    <button
-                      type="button"
-                      onClick={() => onCancel(rental.id)}
-                      className="mt-2 text-xs font-medium text-red-600 hover:underline"
-                    >
-                      Cancel rental
-                    </button>
+                  {canManage && onCancel && onEdit && (
+                    <div className="mt-2 flex flex-wrap gap-3">
+                      <button
+                        type="button"
+                        onClick={() => onEdit(rental)}
+                        className="text-xs font-medium text-terracotta hover:underline"
+                      >
+                        Edit rental
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => onCancel(rental.id)}
+                        className="text-xs font-medium text-red-600 hover:underline"
+                      >
+                        Cancel rental
+                      </button>
+                    </div>
                   )}
                 </div>
                 <div className="relative h-14 w-11 shrink-0 overflow-hidden rounded-md bg-sand">

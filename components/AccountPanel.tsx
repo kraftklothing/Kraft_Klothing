@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/components/AuthProvider";
 import CategoryManager from "@/components/CategoryManager";
 import PasswordInput from "@/components/PasswordInput";
+import PaymentMethodPanel from "@/components/PaymentMethodPanel";
+import PersonalDetailsPanel from "@/components/PersonalDetailsPanel";
 import RentalsPanel from "@/components/RentalsPanel";
 import { ensureAccountDefaults } from "@/lib/account";
 
@@ -168,6 +170,10 @@ export default function AccountPanel() {
       </div>
 
       {session && <RentalsPanel username={session.username} />}
+
+      {session && <PersonalDetailsPanel username={session.username} />}
+
+      {session && <PaymentMethodPanel username={session.username} />}
 
       {session && <CategoryManager username={session.username} />}
 

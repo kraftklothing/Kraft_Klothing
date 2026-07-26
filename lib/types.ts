@@ -42,9 +42,28 @@ export type UserPreferences = {
   dislikedIds: string[];
 };
 
+export type PersonalDetails = {
+  name: string;
+  address: string;
+  city: string;
+  country: string;
+};
+
+/** Saved for future Stripe — never charged during beta. */
+export type SavedPaymentMethod = {
+  brand: string;
+  last4: string;
+  expMonth: string;
+  expYear: string;
+  nameOnCard: string;
+  savedAt: string;
+};
+
 export type UserAccountData = {
   categories: ClosetCategory[];
   fitLabels: FitLabelOption[];
+  personalDetails?: PersonalDetails;
+  paymentMethod?: SavedPaymentMethod | null;
 };
 
 export type Rental = {
