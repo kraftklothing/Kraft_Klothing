@@ -3,7 +3,7 @@ import MainSections from "@/components/MainSections";
 export default function HomePage() {
   return (
     <div className="home-shell text-cocoa">
-      <section className="home-hero relative overflow-hidden border-b border-walnut/15">
+      <section className="home-hero relative overflow-hidden">
         <div className="home-hero-glow pointer-events-none absolute inset-0" aria-hidden="true" />
         <div className="home-hero-grain pointer-events-none absolute inset-0" aria-hidden="true" />
 
