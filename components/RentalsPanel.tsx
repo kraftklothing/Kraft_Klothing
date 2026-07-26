@@ -3,8 +3,8 @@
 import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import { getDressById } from "@/lib/dresses";
-import { formatMonth, getRentalsForUser } from "@/lib/rentals";
-import { Rental } from "@/lib/types";
+import { cancelRental, formatMonth, getRentalsForUser } from "@/lib/rentals";
+import { AvailabilityAlert, Rental } from "@/lib/types";
 
 type RentalsPanelProps = {
   username: string;
@@ -27,6 +27,7 @@ function classifyRental(rental: Rental): RentalBucket {
 
 export default function RentalsPanel({ username }: RentalsPanelProps) {
   const [rentals, setRentals] = useState<Rental[]>([]);
+  const [notice, setNotice] = useState("");
 
   function refresh() {
     setRentals(getRentalsForUser(username));
@@ -35,7 +36,35 @@ export default function RentalsPanel({ username }: RentalsPanelProps) {
   useEffect(() => {
     refresh();
     window.addEventListener("kraft-rentals-updated", refresh);
-    return () => window.removeEventListener("kraft-rentals-updated", refresh);
+
+    const onNotified = (event: Event) => {
+      const detail = (event as CustomEvent<{ alerts: AvailabilityAlert[] }>)
+        .detail;
+      const alerts = detail?.alerts ?? [];
+      if (alerts.length === 0) return;
+      const summary = alerts
+        .map(
+          (alert) =>
+            `${alert.phone} (${formatMonth(alert.month)})`
+        )
+        .join(", ");
+      setNotice(
+        `Rental cancelled. Text alert sent for availability: ${summary}.`
+      );
+    };
+
+    window.addEventListener(
+      "kraft-availability-notified",
+      onNotified as EventListener
+    );
+
+    return () => {
+      window.removeEventListener("kraft-rentals-updated", refresh);
+      window.removeEventListener(
+        "kraft-availability-notified",
+        onNotified as EventListener
+      );
+    };
   }, [username]);
 
   const grouped = useMemo(() => {
@@ -50,6 +79,22 @@ export default function RentalsPanel({ username }: RentalsPanelProps) {
     return buckets;
   }, [rentals]);
 
+  function handleCancel(rentalId: string) {
+    const confirmed = window.confirm(
+      "Cancel this rental? Those months will become available again."
+    );
+    if (!confirmed) return;
+
+    const removed = cancelRental(rentalId);
+    if (!removed) {
+      setNotice("Could not cancel that rental. Please try again.");
+      return;
+    }
+
+    setNotice("Rental cancelled.");
+    refresh();
+  }
+
   return (
     <div className="mt-8 rounded-2xl border border-sand bg-white p-6">
       <p className="text-xs font-semibold uppercase tracking-wider text-terracotta">
@@ -60,9 +105,25 @@ export default function RentalsPanel({ username }: RentalsPanelProps) {
         Previous, current, and upcoming bookings in one place.
       </p>
 
+      {notice && (
+        <p className="mt-4 rounded-xl bg-sand/60 px-4 py-3 text-sm text-espresso/70">
+          {notice}
+        </p>
+      )}
+
       <div className="mt-6 space-y-6">
-        <RentalGroup title="Current" rentals={grouped.current} />
-        <RentalGroup title="Upcoming" rentals={grouped.upcoming} />
+        <RentalGroup
+          title="Current"
+          rentals={grouped.current}
+          canCancel
+          onCancel={handleCancel}
+        />
+        <RentalGroup
+          title="Upcoming"
+          rentals={grouped.upcoming}
+          canCancel
+          onCancel={handleCancel}
+        />
         <RentalGroup title="Previous" rentals={grouped.previous} />
       </div>
     </div>
@@ -72,9 +133,13 @@ export default function RentalsPanel({ username }: RentalsPanelProps) {
 function RentalGroup({
   title,
   rentals,
+  canCancel = false,
+  onCancel,
 }: {
   title: string;
   rentals: Rental[];
+  canCancel?: boolean;
+  onCancel?: (rentalId: string) => void;
 }) {
   return (
     <div>
@@ -104,6 +169,15 @@ function RentalGroup({
                     <p className="mt-0.5 text-xs text-espresso/45">
                       Pickup: {rental.pickupDate}
                     </p>
+                  )}
+                  {canCancel && onCancel && (
+                    <button
+                      type="button"
+                      onClick={() => onCancel(rental.id)}
+                      className="mt-2 text-xs font-medium text-red-600 hover:underline"
+                    >
+                      Cancel rental
+                    </button>
                   )}
                 </div>
                 <div className="relative h-14 w-11 shrink-0 overflow-hidden rounded-md bg-sand">

@@ -55,3 +55,13 @@ export type Rental = {
   pickupDate: string;
   createdAt: string;
 };
+
+/** Text waitlist for a dress+month that is currently booked. */
+export type AvailabilityAlert = {
+  id: string;
+  dressId: string;
+  month: string;
+  phone: string;
+  username: string;
+  createdAt: string;
+};
