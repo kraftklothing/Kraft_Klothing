@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import DressBrowseCard from "@/components/DressBrowseCard";
 import LikeCategoryModal from "@/components/LikeCategoryModal";
 import { useAuth } from "@/components/AuthProvider";
@@ -11,6 +11,7 @@ import { dislikeDress, likeDress } from "@/lib/preferences";
 import { Dress } from "@/lib/types";
 
 export default function BrowseGrid() {
+  const router = useRouter();
   const { session } = useAuth();
   const username = session?.username ?? "";
 
@@ -36,7 +37,14 @@ export default function BrowseGrid() {
     };
   }, [username]);
 
+  function requireLogin(): boolean {
+    if (session) return true;
+    router.push("/account");
+    return false;
+  }
+
   function handleLikeClick(id: string) {
+    if (!requireLogin()) return;
     ensureAccountDefaults(username);
     setLikeTarget(id);
   }
@@ -50,11 +58,10 @@ export default function BrowseGrid() {
   }
 
   function handleDislike(id: string) {
+    if (!requireLogin()) return;
     dislikeDress(id);
     refresh();
   }
-
-  if (!session) return null;
 
   if (!mounted) {
     return <p className="mt-10 text-sm text-espresso/50">Loading...</p>;
@@ -84,12 +91,14 @@ export default function BrowseGrid() {
         ))}
       </div>
 
-      <LikeCategoryModal
-        username={username}
-        open={!!likeTarget}
-        onClose={() => setLikeTarget(null)}
-        onConfirm={confirmLike}
-      />
+      {session && (
+        <LikeCategoryModal
+          username={username}
+          open={!!likeTarget}
+          onClose={() => setLikeTarget(null)}
+          onConfirm={confirmLike}
+        />
+      )}
     </>
   );
 }

@@ -12,7 +12,7 @@ const NAV_LINKS = [
 ];
 
 export default function Header() {
-  const { isModerator, mounted } = useAuth();
+  const { session, isModerator, mounted } = useAuth();
 
   return (
     <header className="sticky top-0 z-50 border-b border-sand/60 bg-cream/90 backdrop-blur-md">
@@ -36,6 +36,14 @@ export default function Header() {
               {link.label}
             </Link>
           ))}
+          {mounted && !session && (
+            <Link
+              href="/account"
+              className="text-sm font-medium text-espresso/70 transition-colors hover:text-terracotta"
+            >
+              Login
+            </Link>
+          )}
           {mounted && isModerator && (
             <>
               <Link
@@ -70,6 +78,14 @@ export default function Header() {
                 Edit
               </Link>
             </>
+          )}
+          {mounted && !session && (
+            <Link
+              href="/account"
+              className="rounded-full border border-espresso/20 px-4 py-2 text-sm font-medium text-espresso"
+            >
+              Login
+            </Link>
           )}
           <Link
             href="/browse"
