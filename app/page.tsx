@@ -7,7 +7,7 @@ export default function HomePage() {
         <div className="home-hero-glow pointer-events-none absolute inset-0" aria-hidden="true" />
         <div className="home-hero-grain pointer-events-none absolute inset-0" aria-hidden="true" />
 
-        <div className="relative mx-auto flex min-h-[58vh] max-w-5xl flex-col items-center justify-center px-6 py-16 text-center md:min-h-[62vh] md:py-24">
+        <div className="relative mx-auto flex max-w-5xl flex-col items-center justify-center px-6 pb-4 pt-14 text-center md:pb-5 md:pt-20">
           <p className="home-fade-up font-serif text-5xl font-semibold tracking-tight text-cocoa md:text-7xl">
             Kraft Klothing
           </p>
@@ -18,7 +18,7 @@ export default function HomePage() {
             Best priced one-time wear fashion to save money and the environment
           </p>
           <div
-            className="home-fade-up home-delay-3 mt-10 h-px w-16 bg-walnut/35"
+            className="home-fade-up home-delay-3 mt-6 h-px w-16 bg-walnut/35"
             aria-hidden="true"
           />
         </div>
