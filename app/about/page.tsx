@@ -18,9 +18,8 @@ export default function AboutPage() {
       </h1>
       <p className="mt-4 leading-relaxed text-espresso/70">
         Kraft Klothing is a peer-to-peer marketplace for renting dresses and
-        one-time wear items. We connect people who need a stunning look for a
-        special occasion with owners who have beautiful pieces sitting in their
-        closets. Ability to List your self to come with future updates!
+        one-time wear items. Ability to List your self to come with future
+        updates!
       </p>
 
       <PolicySection title="How renting works">
