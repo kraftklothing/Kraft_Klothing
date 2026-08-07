@@ -38,8 +38,14 @@ export default function AboutPage() {
             when an occasion is coming up
           </li>
           <li>
-            Rent with deposit, pickup, wear, drop off and get deposit (less
-            cleaning/damage costs) back.
+            Complete the rental flow:
+            <ul className="mt-2 list-disc space-y-1 pl-5">
+              <li>Rent with deposit</li>
+              <li>Pickup</li>
+              <li>Wear</li>
+              <li>Drop off</li>
+              <li>Get deposit (less cleaning/damage costs) back</li>
+            </ul>
           </li>
         </ol>
       </PolicySection>
