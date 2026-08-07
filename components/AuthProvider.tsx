@@ -10,6 +10,7 @@ import {
 import {
   getSession,
   isModerator,
+  isSandbox,
   login,
   logout,
   notifyAuthChange,
@@ -20,6 +21,7 @@ import { AuthSession } from "@/lib/types";
 type AuthContextValue = {
   session: AuthSession | null;
   isModerator: boolean;
+  isSandbox: boolean;
   mounted: boolean;
   signIn: (username: string, password: string) => string | null;
   register: (username: string, password: string) => string | null;
@@ -70,6 +72,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       value={{
         session,
         isModerator: isModerator(session),
+        isSandbox: isSandbox(session),
         mounted,
         signIn,
         register,

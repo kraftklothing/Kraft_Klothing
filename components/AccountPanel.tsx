@@ -13,7 +13,8 @@ import { ensureAccountDefaults } from "@/lib/account";
 
 export default function AccountPanel() {
   const router = useRouter();
-  const { session, isModerator, mounted, signIn, register, signOut } = useAuth();
+  const { session, isModerator, isSandbox, mounted, signIn, register, signOut } =
+    useAuth();
 
   const [mode, setMode] = useState<"login" | "signup">("login");
   const [username, setUsername] = useState("");
@@ -64,10 +65,20 @@ export default function AccountPanel() {
               <div>
                 <p className="font-medium text-espresso">{session.username}</p>
                 <p className="text-sm text-espresso/50">
-                  {isModerator ? "Moderator access" : "Member account"}
+                  {isModerator
+                    ? "Moderator access"
+                    : isSandbox
+                      ? "Sandbox shopper (demo rentals)"
+                      : "Member account"}
                 </p>
               </div>
             </div>
+            {isSandbox && (
+              <p className="mt-4 rounded-xl bg-sand/60 px-4 py-3 text-sm text-espresso/70">
+                Rentals on this account are for access testing only. They do not
+                reserve dresses or block other shoppers.
+              </p>
+            )}
             <button
               type="button"
               onClick={signOut}
