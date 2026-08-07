@@ -18,9 +18,8 @@ export default function AboutPage() {
       </h1>
       <p className="mt-4 leading-relaxed text-espresso/70">
         Kraft Klothing is a peer-to-peer marketplace for renting dresses and
-        one-time wear items. We connect people who need a stunning look for a
-        special occasion with owners who have beautiful pieces sitting in their
-        closets. Ability to List your self to come with future updates!
+        one-time wear items. Ability to List your self to come with future
+        updates!
       </p>
 
       <PolicySection title="How renting works">
@@ -39,16 +38,28 @@ export default function AboutPage() {
             when an occasion is coming up
           </li>
           <li>
-            Rent with deposit, pickup, wear, drop off and get deposit (less
-            cleaning/damage costs) back.
+            Complete the rental flow:
+            <ul className="mt-2 list-disc space-y-1 pl-5">
+              <li>Rent with deposit</li>
+              <li>Pickup</li>
+              <li>Wear</li>
+              <li>Drop off</li>
+              <li>Get deposit (less cleaning/damage costs) back</li>
+            </ul>
           </li>
         </ol>
       </PolicySection>
 
       <PolicySection title="Rental policies">
         <ul className="list-disc space-y-2 pl-5">
-          <li>Rental periods are typically 3–7 days unless otherwise noted.</li>
-          <li>Items must be returned in the same condition you received them.</li>
+          <li>
+            Rental periods are by month — choose a month and rent for that
+            month.
+          </li>
+          <li>
+            Items must be returned in the same condition you received them, or
+            else the cleaning fees will be removed from your deposit.
+          </li>
           <li>Late returns may incur additional daily fees.</li>
           <li>A refundable security deposit may apply (coming in full release).</li>
         </ul>
@@ -70,23 +81,14 @@ export default function AboutPage() {
         </ul>
       </PolicySection>
 
-      <PolicySection title="For lenders">
-        <p>
-          When you list on Kraft Klothing, you set your own price and
-          availability. We recommend pricing at 10–20% of retail value per day.
-          You keep the majority of each rental — platform fees apply in the full
-          release.
-        </p>
-      </PolicySection>
-
       <PolicySection title="Contact">
         <p>
           Questions about a rental or listing? Reach us at{" "}
           <a
-            href="mailto:hello@kraftklothing.com"
+            href="mailto:ked212121@gmail.com"
             className="text-terracotta hover:underline"
           >
-            hello@kraftklothing.com
+            ked212121@gmail.com
           </a>
           .
         </p>
