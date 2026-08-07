@@ -1,3 +1,4 @@
+import { isSandboxUsername } from "./auth";
 import { AvailabilityAlert, Rental } from "./types";
 
 export const RENTALS_STORAGE_KEY = "kraft-klothing-rentals";
@@ -20,8 +21,17 @@ function writeRentals(rentals: Rental[]): void {
   window.dispatchEvent(new Event("kraft-rentals-updated"));
 }
 
+/** Demo rentals must never block real shoppers or free waitlist months. */
+export function isSandboxRental(rental: Rental): boolean {
+  return rental.sandbox === true || isSandboxUsername(rental.username);
+}
+
+function realRentals(): Rental[] {
+  return getAllRentals().filter((r) => !isSandboxRental(r));
+}
+
 export function getBookedMonthsForDress(dressId: string): string[] {
-  return getAllRentals()
+  return realRentals()
     .filter((r) => r.dressId === dressId)
     .flatMap((r) => r.months);
 }
@@ -31,14 +41,16 @@ export function getRentalsForUser(username: string): Rental[] {
 }
 
 export function createRental(
-  rental: Omit<Rental, "id" | "createdAt">
+  rental: Omit<Rental, "id" | "createdAt" | "sandbox">
 ): Rental | null {
+  const sandbox = isSandboxUsername(rental.username);
   const booked = getBookedMonthsForDress(rental.dressId);
   const hasConflict = rental.months.some((m) => booked.includes(m));
   if (hasConflict) return null;
 
   const newRental: Rental = {
     ...rental,
+    sandbox: sandbox || undefined,
     id: crypto.randomUUID(),
     createdAt: new Date().toISOString(),
   };
@@ -57,11 +69,15 @@ export function cancelRental(rentalId: string): Rental | null {
   const [removed] = rentals.splice(index, 1);
   writeRentals(rentals);
 
-  const notified = notifyAvailabilityAlerts(removed.dressId, removed.months);
-  if (notified.length > 0) {
-    window.dispatchEvent(
-      new CustomEvent("kraft-availability-notified", { detail: { alerts: notified } })
-    );
+  if (!isSandboxRental(removed)) {
+    const notified = notifyAvailabilityAlerts(removed.dressId, removed.months);
+    if (notified.length > 0) {
+      window.dispatchEvent(
+        new CustomEvent("kraft-availability-notified", {
+          detail: { alerts: notified },
+        })
+      );
+    }
   }
 
   return removed;
@@ -71,7 +87,7 @@ export function getBookedMonthsForDressExcluding(
   dressId: string,
   excludeRentalId: string
 ): string[] {
-  return getAllRentals()
+  return realRentals()
     .filter((r) => r.dressId === dressId && r.id !== excludeRentalId)
     .flatMap((r) => r.months);
 }
@@ -110,7 +126,7 @@ export function updateRental(
   rentals[index] = updated;
   writeRentals(rentals);
 
-  if (freedMonths.length > 0) {
+  if (freedMonths.length > 0 && !isSandboxRental(updated)) {
     const notified = notifyAvailabilityAlerts(current.dressId, freedMonths);
     if (notified.length > 0) {
       window.dispatchEvent(

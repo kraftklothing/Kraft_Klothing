@@ -9,7 +9,7 @@ export type Dress = {
   listedBy: string;
 };
 
-export type UserRole = "user" | "moderator";
+export type UserRole = "user" | "moderator" | "sandbox";
 
 export type AuthSession = {
   username: string;
@@ -73,6 +73,8 @@ export type Rental = {
   months: string[];
   pickupDate: string;
   createdAt: string;
+  /** Sandbox rentals are demo-only and never lock inventory for other accounts. */
+  sandbox?: boolean;
 };
 
 /** Text waitlist for a dress+month that is currently booked. */

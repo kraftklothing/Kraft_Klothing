@@ -6,6 +6,11 @@ export const USERS_STORAGE_KEY = "kraft-klothing-users";
 const MODERATOR_USERNAME = "ked2000";
 const MODERATOR_PASSWORD = "swimmingwolvesrock510";
 
+/** Temp shopper account — can browse/rent in demo mode without locking inventory. */
+const SANDBOX_USERNAME = "shopperpogger";
+const SANDBOX_PASSWORD = "poggershopper";
+const SANDBOX_DISPLAY_NAME = "shopperpogger";
+
 function readUsers(): StoredUser[] {
   if (typeof window === "undefined") return [];
   try {
@@ -27,6 +32,10 @@ function saveSession(session: AuthSession): AuthSession {
   return session;
 }
 
+export function isSandboxUsername(username: string): boolean {
+  return username.trim().toLowerCase() === SANDBOX_USERNAME;
+}
+
 export function signUp(username: string, password: string): AuthSession | { error: string } {
   const trimmed = username.trim();
   const normalized = trimmed.toLowerCase();
@@ -37,7 +46,7 @@ export function signUp(username: string, password: string): AuthSession | { erro
   if (password.length < 6) {
     return { error: "Password must be at least 6 characters." };
   }
-  if (normalized === MODERATOR_USERNAME) {
+  if (normalized === MODERATOR_USERNAME || normalized === SANDBOX_USERNAME) {
     return { error: "This username is reserved." };
   }
 
@@ -70,6 +79,13 @@ export function login(
     return saveSession({ username: "Ked2000", role: "moderator" });
   }
 
+  if (
+    normalized === SANDBOX_USERNAME &&
+    password === SANDBOX_PASSWORD
+  ) {
+    return saveSession({ username: SANDBOX_DISPLAY_NAME, role: "sandbox" });
+  }
+
   const user = readUsers().find(
     (u) => u.username.toLowerCase() === normalized
   );
@@ -95,8 +111,16 @@ export function getSession(): AuthSession | null {
       return { username: session.username, role: "moderator" };
     }
     if (session.role === "guest") return null;
-    if (session.role === "user" || session.role === "moderator") {
+    if (
+      session.role === "user" ||
+      session.role === "moderator" ||
+      session.role === "sandbox"
+    ) {
       return session as AuthSession;
+    }
+    // Recover sandbox sessions if role was missing/stale but username matches.
+    if (isSandboxUsername(session.username)) {
+      return { username: SANDBOX_DISPLAY_NAME, role: "sandbox" };
     }
     return null;
   } catch {
@@ -106,6 +130,10 @@ export function getSession(): AuthSession | null {
 
 export function isModerator(session: AuthSession | null): boolean {
   return session?.role === "moderator";
+}
+
+export function isSandbox(session: AuthSession | null): boolean {
+  return session?.role === "sandbox" || isSandboxUsername(session?.username ?? "");
 }
 
 export function notifyAuthChange(): void {

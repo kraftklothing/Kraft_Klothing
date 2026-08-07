@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { isSandboxUsername } from "@/lib/auth";
 import { formatPrice, getDressById } from "@/lib/dresses";
 import {
   createRental,
@@ -157,6 +158,12 @@ export default function RentModal({
           {dress.brand} · Size {dress.size} ·{" "}
           {formatPrice(dress.pricePerMonth)}/month
         </p>
+        {isSandboxUsername(username) && (
+          <p className="mt-3 rounded-xl bg-sand/60 px-3 py-2 text-xs text-espresso/70">
+            Sandbox mode: this rental is demo-only and will not reserve the dress
+            for other accounts.
+          </p>
+        )}
 
         <form onSubmit={handleSubmit} className="mt-6 space-y-6">
           <div>
