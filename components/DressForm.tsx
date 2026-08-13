@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import ImageCropModal from "@/components/ImageCropModal";
 import { addDress, updateDress } from "@/lib/dresses";
+import { LETTER_SIZES, NUMERIC_SIZES, OTHER_SIZES } from "@/lib/sizes";
 import { Dress } from "@/lib/types";
 
 type DressFormProps = {
@@ -130,11 +131,27 @@ export default function DressForm({ dress, listedBy, onSuccess }: DressFormProps
             className="mt-1.5 w-full rounded-xl border border-sand bg-white px-4 py-3 text-sm outline-none focus:border-terracotta"
           >
             <option value="">Select size</option>
-            {["XS", "S", "M", "L", "XL", "XXL", "One Size"].map((s) => (
-              <option key={s} value={s}>
-                {s}
-              </option>
-            ))}
+            <optgroup label="Letter">
+              {LETTER_SIZES.map((s) => (
+                <option key={s} value={s}>
+                  {s}
+                </option>
+              ))}
+            </optgroup>
+            <optgroup label="Numeric">
+              {NUMERIC_SIZES.map((s) => (
+                <option key={s} value={s}>
+                  {s}
+                </option>
+              ))}
+            </optgroup>
+            <optgroup label="Other">
+              {OTHER_SIZES.map((s) => (
+                <option key={s} value={s}>
+                  {s}
+                </option>
+              ))}
+            </optgroup>
           </select>
         </label>
 
