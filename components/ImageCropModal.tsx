@@ -102,8 +102,8 @@ export default function ImageCropModal({
     const drawY = (ch - drawH) / 2 + offset.y;
 
     const output = document.createElement("canvas");
-    output.width = 800;
-    output.height = Math.round(800 / ASPECT);
+    output.width = 640;
+    output.height = Math.round(640 / ASPECT);
     const ctx = output.getContext("2d");
     if (!ctx) return;
 
@@ -117,7 +117,7 @@ export default function ImageCropModal({
       drawH * scaleY
     );
 
-    onCrop(output.toDataURL("image/jpeg", 0.9));
+    onCrop(output.toDataURL("image/jpeg", 0.72));
     onClose();
   }
 

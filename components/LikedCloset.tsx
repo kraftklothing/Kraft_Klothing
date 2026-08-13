@@ -15,7 +15,7 @@ import {
   getCategories,
   getFitLabels,
 } from "@/lib/account";
-import { getDressById } from "@/lib/dresses";
+import { getDressById, loadDresses } from "@/lib/dresses";
 import { getLiked, updateLikedDress } from "@/lib/preferences";
 import { LikedDress } from "@/lib/types";
 
@@ -48,16 +48,18 @@ export default function LikedCloset() {
 
   useEffect(() => {
     setMounted(true);
-    refresh();
+    void loadDresses().then(() => refresh());
 
     window.addEventListener("kraft-preferences-updated", refresh);
     window.addEventListener("kraft-account-updated", refresh);
     window.addEventListener("kraft-rentals-updated", refresh);
+    window.addEventListener("kraft-dresses-updated", refresh);
 
     return () => {
       window.removeEventListener("kraft-preferences-updated", refresh);
       window.removeEventListener("kraft-account-updated", refresh);
       window.removeEventListener("kraft-rentals-updated", refresh);
+      window.removeEventListener("kraft-dresses-updated", refresh);
     };
   }, [username]);
 

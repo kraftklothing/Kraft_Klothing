@@ -52,7 +52,7 @@ export default function DressForm({ dress, listedBy, onSuccess }: DressFormProps
     setImages((prev) => prev.filter((_, i) => i !== index));
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (images.length === 0) return;
 
@@ -66,14 +66,23 @@ export default function DressForm({ dress, listedBy, onSuccess }: DressFormProps
       listedBy,
     };
 
-    if (isEditing && dress) {
-      updateDress(dress.id, data);
-      onSuccess?.();
-    } else {
-      addDress(data);
-      router.push("/browse");
+    try {
+      if (isEditing && dress) {
+        await updateDress(dress.id, data);
+        onSuccess?.();
+      } else {
+        await addDress(data);
+        router.push("/browse");
+      }
+    } catch (error) {
+      window.alert(
+        error instanceof Error
+          ? error.message
+          : "Could not save this listing. Please try again."
+      );
+    } finally {
+      setSubmitting(false);
     }
-    setSubmitting(false);
   }
 
   return (

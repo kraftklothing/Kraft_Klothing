@@ -6,7 +6,7 @@ import DressBrowseCard from "@/components/DressBrowseCard";
 import LikeCategoryModal from "@/components/LikeCategoryModal";
 import { useAuth } from "@/components/AuthProvider";
 import { ensureAccountDefaults } from "@/lib/account";
-import { getAllDresses } from "@/lib/dresses";
+import { getAllDresses, loadDresses } from "@/lib/dresses";
 import {
   dislikeDress,
   getDislikedIds,
@@ -32,7 +32,7 @@ export default function BrowseGrid() {
   useEffect(() => {
     setMounted(true);
     if (username) ensureAccountDefaults(username);
-    refresh();
+    void loadDresses().then(() => refresh());
 
     window.addEventListener("kraft-dresses-updated", refresh);
     window.addEventListener("kraft-preferences-updated", refresh);

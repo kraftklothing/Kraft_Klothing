@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import EditRentalModal from "@/components/EditRentalModal";
-import { getDressById } from "@/lib/dresses";
+import { getDressById, loadDresses } from "@/lib/dresses";
 import { cancelRental, formatMonth, getRentalsForUser } from "@/lib/rentals";
 import { AvailabilityAlert, Rental } from "@/lib/types";
 
@@ -36,8 +36,9 @@ export default function RentalsPanel({ username }: RentalsPanelProps) {
   }
 
   useEffect(() => {
-    refresh();
+    void loadDresses().then(() => refresh());
     window.addEventListener("kraft-rentals-updated", refresh);
+    window.addEventListener("kraft-dresses-updated", refresh);
 
     const onNotified = (event: Event) => {
       const detail = (event as CustomEvent<{ alerts: AvailabilityAlert[] }>)
@@ -59,6 +60,7 @@ export default function RentalsPanel({ username }: RentalsPanelProps) {
 
     return () => {
       window.removeEventListener("kraft-rentals-updated", refresh);
+      window.removeEventListener("kraft-dresses-updated", refresh);
       window.removeEventListener(
         "kraft-availability-notified",
         onNotified as EventListener

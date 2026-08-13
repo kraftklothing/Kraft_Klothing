@@ -7,6 +7,7 @@ import LikeCategoryModal from "@/components/LikeCategoryModal";
 import RequireAuth from "@/components/RequireAuth";
 import { useAuth } from "@/components/AuthProvider";
 import { ensureAccountDefaults } from "@/lib/account";
+import { loadDresses } from "@/lib/dresses";
 import { getDislikedIds, likeDress, removeFromDisliked } from "@/lib/preferences";
 
 function DislikedContent() {
@@ -20,10 +21,13 @@ function DislikedContent() {
   useEffect(() => {
     setMounted(true);
     const refresh = () => setDislikedIds(getDislikedIds());
-    refresh();
+    void loadDresses().then(refresh);
     window.addEventListener("kraft-preferences-updated", refresh);
-    return () =>
+    window.addEventListener("kraft-dresses-updated", refresh);
+    return () => {
       window.removeEventListener("kraft-preferences-updated", refresh);
+      window.removeEventListener("kraft-dresses-updated", refresh);
+    };
   }, []);
 
   function handleRelikeClick(dressId: string) {

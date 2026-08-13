@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import DressForm from "@/components/DressForm";
+import SharedInventoryNotice from "@/components/SharedInventoryNotice";
 import { useAuth } from "@/components/AuthProvider";
 
 export default function ListPage() {
@@ -48,6 +49,8 @@ export default function ListPage() {
       <p className="mt-4 leading-relaxed text-espresso/70">
         Add photos, crop them, and list to the site for everyone to browse.
       </p>
+
+      <SharedInventoryNotice />
 
       <div className="mt-10 rounded-2xl border border-sand bg-white p-6 sm:p-8">
         <DressForm listedBy={session.username} />

@@ -10,6 +10,7 @@ import {
   deleteDress,
   formatPrice,
   getDressesByLister,
+  loadDresses,
 } from "@/lib/dresses";
 import { Dress } from "@/lib/types";
 
@@ -30,14 +31,14 @@ export default function EditListingsPanel() {
   }, [mounted, isModerator, router]);
 
   useEffect(() => {
-    refresh();
+    void loadDresses().then(() => refresh());
     window.addEventListener("kraft-dresses-updated", refresh);
     return () => window.removeEventListener("kraft-dresses-updated", refresh);
   }, [session]);
 
-  function handleDelete(id: string) {
+  async function handleDelete(id: string) {
     if (confirm("Delete this listing?")) {
-      deleteDress(id);
+      await deleteDress(id);
       if (editing?.id === id) setEditing(null);
       refresh();
     }
