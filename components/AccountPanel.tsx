@@ -9,6 +9,7 @@ import PasswordInput from "@/components/PasswordInput";
 import PaymentMethodPanel from "@/components/PaymentMethodPanel";
 import PersonalDetailsPanel from "@/components/PersonalDetailsPanel";
 import RentalsPanel from "@/components/RentalsPanel";
+import RentalsToPackPanel from "@/components/RentalsToPackPanel";
 import { ensureAccountDefaults } from "@/lib/account";
 
 export default function AccountPanel() {
@@ -179,6 +180,10 @@ export default function AccountPanel() {
           </div>
         )}
       </div>
+
+      {session && isModerator && (
+        <RentalsToPackPanel username={session.username} />
+      )}
 
       {session && <RentalsPanel username={session.username} />}
 
