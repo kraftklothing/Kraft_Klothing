@@ -5,6 +5,10 @@ export const LISTING_CATEGORIES = [
   "Jackets",
   "Coats",
   "Skirts",
+  "Shorts",
+  "Shirts",
+  "Sweaters",
+  "Tank Tops",
   "Shoes",
   "Sports Equipment",
 ] as const;
