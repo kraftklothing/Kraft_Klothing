@@ -155,7 +155,8 @@ export default function RentModal({
       <div className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-2xl border border-sand bg-cream p-6 shadow-xl">
         <h2 className="font-serif text-2xl text-espresso">Rent this dress</h2>
         <p className="mt-1 text-sm text-espresso/60">
-          {dress.brand} · Size {dress.size} ·{" "}
+          {dress.brand}
+          {dress.name ? ` · ${dress.name}` : ""} · Size {dress.size} ·{" "}
           {formatPrice(dress.pricePerMonth)}/month
         </p>
         {isSandboxUsername(username) && (

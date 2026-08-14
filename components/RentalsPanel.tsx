@@ -177,6 +177,7 @@ function RentalGroup({
                 <div className="min-w-0 flex-1">
                   <p className="text-sm font-medium text-espresso">
                     {dress?.brand ?? "Dress"}
+                    {dress?.name ? ` · ${dress.name}` : ""}
                     {dress?.size ? ` · Size ${dress.size}` : ""}
                   </p>
                   <p className="mt-1 text-xs text-espresso/55">{months}</p>
@@ -208,7 +209,13 @@ function RentalGroup({
                   {thumb && (
                     <Image
                       src={thumb}
-                      alt={dress?.brand ? `${dress.brand} dress` : "Dress"}
+                      alt={
+                        dress?.name
+                          ? `${dress.brand} ${dress.name}`
+                          : dress?.brand
+                            ? `${dress.brand} dress`
+                            : "Dress"
+                      }
                       fill
                       className="object-cover"
                       unoptimized
