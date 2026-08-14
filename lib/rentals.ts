@@ -40,6 +40,20 @@ export function getRentalsForUser(username: string): Rental[] {
   return getAllRentals().filter((r) => r.username === username);
 }
 
+/** Real rentals from every account except `excludeUsername` (for packing). */
+export function getRentalsToPack(excludeUsername: string): Rental[] {
+  const excluded = excludeUsername.trim().toLowerCase();
+  return realRentals()
+    .filter((r) => r.username.trim().toLowerCase() !== excluded)
+    .sort((a, b) => {
+      const pickupCmp = a.pickupDate.localeCompare(b.pickupDate);
+      if (pickupCmp !== 0) return pickupCmp;
+      const aMonth = [...a.months].sort()[0] ?? "";
+      const bMonth = [...b.months].sort()[0] ?? "";
+      return aMonth.localeCompare(bMonth);
+    });
+}
+
 export function createRental(
   rental: Omit<Rental, "id" | "createdAt" | "sandbox">
 ): Rental | null {
