@@ -76,7 +76,7 @@ export default function AccountPanel() {
             {isSandbox && (
               <p className="mt-4 rounded-xl bg-sand/60 px-4 py-3 text-sm text-espresso/70">
                 Rentals on this account are for access testing only. They do not
-                reserve dresses or block other shoppers.
+                reserve clothing or block other shoppers.
               </p>
             )}
             <button
@@ -127,7 +127,7 @@ export default function AccountPanel() {
               <p className="text-sm text-espresso/60">
                 {mode === "login"
                   ? "Log in with your username and password."
-                  : "Create an account to browse and rent dresses."}
+                  : "Create an account to browse and rent clothing."}
               </p>
 
               <label className="block">
@@ -192,13 +192,13 @@ export default function AccountPanel() {
         <div className="mt-8 space-y-3">
           <AccountLink
             href="/liked"
-            title="Liked Dresses"
-            description="Dresses you've hearted"
+            title="Liked Clothing"
+            description="Clothing you've hearted"
           />
           <AccountLink
             href="/disliked"
-            title="Disliked Dresses"
-            description="Passed dresses — change your mind anytime"
+            title="Disliked Clothing"
+            description="Passed clothing — change your mind anytime"
           />
           <AccountLink
             href="/about"

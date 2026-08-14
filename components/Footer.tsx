@@ -21,17 +21,17 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/browse" className="hover:text-terracotta">
-                  Browse dresses
+                  Browse clothing
                 </Link>
               </li>
               <li>
                 <Link href="/liked" className="hover:text-terracotta">
-                  Liked dresses
+                  Liked clothing
                 </Link>
               </li>
               <li>
                 <Link href="/disliked" className="hover:text-terracotta">
-                  Disliked dresses
+                  Disliked clothing
                 </Link>
               </li>
               <li>
@@ -47,7 +47,7 @@ export default function Footer() {
               How it works
             </p>
             <ol className="mt-4 space-y-2 text-sm text-espresso/70">
-              <li>1. Browse the inventory and store your favories</li>
+              <li>1. Browse the inventory, store your favories, clear out the clutter</li>
               <li>2. Book your rental dates</li>
               <li>3. Wear it & return clean</li>
             </ol>

@@ -80,10 +80,26 @@
   }
 }
 
+.bundle-fade-in {
+  animation: bundle-fade-in 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes bundle-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .home-hero-glow,
   .home-fade-up,
-  .home-link {
+  .home-link,
+  .bundle-fade-in {
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;

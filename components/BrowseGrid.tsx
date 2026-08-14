@@ -88,11 +88,11 @@ export default function BrowseGrid() {
     return (
       <div className="mt-16 rounded-2xl border border-sand bg-white p-10 text-center">
         <p className="font-serif text-xl text-espresso">
-          {hasInventory ? "You're all caught up" : "No dresses listed yet"}
+          {hasInventory ? "You're all caught up" : "No clothing listed yet"}
         </p>
         <p className="mt-2 text-sm text-espresso/60">
           {hasInventory
-            ? "Liked and passed dresses are saved in your account."
+            ? "Liked and passed clothing is saved in your account."
             : "Check back soon for new inventory."}
         </p>
       </div>
