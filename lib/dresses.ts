@@ -1,3 +1,4 @@
+import { normalizeListingCategory } from "./categories";
 import { Dress } from "./types";
 
 /** Local cache key — used as offline fallback and one-time migrate source. */
@@ -6,15 +7,21 @@ export const DRESSES_STORAGE_KEY = "kraft-klothing-dresses";
 let cache: Dress[] = [];
 let sharedConfigured: boolean | null = null;
 
+function normalizeDress(dress: Dress): Dress {
+  return {
+    ...dress,
+    size: dress.size ?? "Unknown",
+    category: normalizeListingCategory(dress.category),
+  };
+}
+
 function readLocalDresses(): Dress[] {
   if (typeof window === "undefined") return [];
   try {
     const raw = localStorage.getItem(DRESSES_STORAGE_KEY);
     if (!raw) return [];
     const parsed = JSON.parse(raw);
-    return Array.isArray(parsed)
-      ? parsed.map((d: Dress) => ({ ...d, size: d.size ?? "Unknown" }))
-      : [];
+    return Array.isArray(parsed) ? parsed.map((d: Dress) => normalizeDress(d)) : [];
   } catch {
     return [];
   }
@@ -26,7 +33,7 @@ function writeLocalDresses(dresses: Dress[]): void {
 }
 
 function setCache(dresses: Dress[]): Dress[] {
-  cache = dresses.map((d) => ({ ...d, size: d.size ?? "Unknown" }));
+  cache = dresses.map((d) => normalizeDress(d));
   writeLocalDresses(cache);
   return cache;
 }

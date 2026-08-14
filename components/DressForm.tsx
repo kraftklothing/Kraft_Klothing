@@ -4,6 +4,11 @@ import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import ImageCropModal from "@/components/ImageCropModal";
+import {
+  DEFAULT_LISTING_CATEGORY,
+  LISTING_CATEGORIES,
+  normalizeListingCategory,
+} from "@/lib/categories";
 import { addDress, updateDress } from "@/lib/dresses";
 import { LETTER_SIZES, NUMERIC_SIZES, OTHER_SIZES } from "@/lib/sizes";
 import { Dress } from "@/lib/types";
@@ -20,6 +25,9 @@ export default function DressForm({ dress, listedBy, onSuccess }: DressFormProps
 
   const [images, setImages] = useState<string[]>(dress?.images ?? []);
   const [size, setSize] = useState(dress?.size ?? "");
+  const [category, setCategory] = useState(
+    dress ? normalizeListingCategory(dress.category) : DEFAULT_LISTING_CATEGORY
+  );
   const [color, setColor] = useState(dress?.color ?? "");
   const [brand, setBrand] = useState(dress?.brand ?? "");
   const [pricePerMonth, setPricePerMonth] = useState(
@@ -62,6 +70,7 @@ export default function DressForm({ dress, listedBy, onSuccess }: DressFormProps
       color: color.trim(),
       brand: brand.trim(),
       size: size.trim(),
+      category,
       pricePerMonth: Number(pricePerMonth),
       listedBy,
     };
@@ -128,6 +137,24 @@ export default function DressForm({ dress, listedBy, onSuccess }: DressFormProps
             ))}
           </div>
         )}
+
+        <label className="block">
+          <span className="text-xs font-medium uppercase tracking-wider text-espresso/50">
+            Category
+          </span>
+          <select
+            required
+            value={category}
+            onChange={(e) => setCategory(normalizeListingCategory(e.target.value))}
+            className="mt-1.5 w-full rounded-xl border border-sand bg-white px-4 py-3 text-sm outline-none focus:border-terracotta"
+          >
+            {LISTING_CATEGORIES.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+        </label>
 
         <label className="block">
           <span className="text-xs font-medium uppercase tracking-wider text-espresso/50">

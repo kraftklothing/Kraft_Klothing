@@ -1,4 +1,5 @@
 import { Redis } from "@upstash/redis";
+import { normalizeListingCategory } from "@/lib/categories";
 import { Dress } from "@/lib/types";
 
 export const SHARED_DRESSES_KEY = "kraft-klothing-dresses";
@@ -28,6 +29,7 @@ function normalizeDresses(value: unknown): Dress[] {
     .map((dress) => ({
       ...dress,
       size: dress.size ?? "Unknown",
+      category: normalizeListingCategory(dress.category),
       images: Array.isArray(dress.images) ? dress.images : [],
     }));
 }

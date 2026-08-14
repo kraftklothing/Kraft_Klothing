@@ -1,11 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import CategoryFilter from "@/components/CategoryFilter";
 import DressBrowseCard from "@/components/DressBrowseCard";
 import LikeCategoryModal from "@/components/LikeCategoryModal";
 import { useAuth } from "@/components/AuthProvider";
 import { ensureAccountDefaults } from "@/lib/account";
+import { normalizeListingCategory } from "@/lib/categories";
 import { getAllDresses, loadDresses } from "@/lib/dresses";
 import {
   dislikeDress,
@@ -21,6 +23,7 @@ export default function BrowseGrid() {
   const username = session?.username ?? "";
 
   const [dresses, setDresses] = useState<Dress[]>([]);
+  const [categoryFilter, setCategoryFilter] = useState<string>("all");
   const [mounted, setMounted] = useState(false);
   const [likeTarget, setLikeTarget] = useState<string | null>(null);
 
@@ -42,6 +45,13 @@ export default function BrowseGrid() {
       window.removeEventListener("kraft-preferences-updated", refresh);
     };
   }, [username]);
+
+  const filteredDresses = useMemo(() => {
+    if (categoryFilter === "all") return dresses;
+    return dresses.filter(
+      (dress) => normalizeListingCategory(dress.category) === categoryFilter
+    );
+  }, [dresses, categoryFilter]);
 
   function requireLogin(): boolean {
     if (session) return true;
@@ -91,16 +101,33 @@ export default function BrowseGrid() {
 
   return (
     <>
-      <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {dresses.map((dress) => (
-          <DressBrowseCard
-            key={dress.id}
-            dress={dress}
-            onLike={handleLikeClick}
-            onDislike={handleDislike}
-          />
-        ))}
-      </div>
+      <CategoryFilter
+        value={categoryFilter}
+        onChange={setCategoryFilter}
+        className="mt-8"
+      />
+
+      {filteredDresses.length === 0 ? (
+        <div className="mt-10 rounded-2xl border border-sand bg-white p-10 text-center">
+          <p className="font-serif text-xl text-espresso">
+            No items in this category
+          </p>
+          <p className="mt-2 text-sm text-espresso/60">
+            Try another category or clear the filter.
+          </p>
+        </div>
+      ) : (
+        <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {filteredDresses.map((dress) => (
+            <DressBrowseCard
+              key={dress.id}
+              dress={dress}
+              onLike={handleLikeClick}
+              onDislike={handleDislike}
+            />
+          ))}
+        </div>
+      )}
 
       {session && (
         <LikeCategoryModal

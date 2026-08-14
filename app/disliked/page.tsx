@@ -1,13 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import CategoryFilter from "@/components/CategoryFilter";
 import DressGrid from "@/components/DressGrid";
 import LikeCategoryModal from "@/components/LikeCategoryModal";
 import RequireAuth from "@/components/RequireAuth";
 import { useAuth } from "@/components/AuthProvider";
 import { ensureAccountDefaults } from "@/lib/account";
-import { loadDresses } from "@/lib/dresses";
+import { normalizeListingCategory } from "@/lib/categories";
+import { getDressById, loadDresses } from "@/lib/dresses";
 import { getDislikedIds, likeDress, removeFromDisliked } from "@/lib/preferences";
 
 function DislikedContent() {
@@ -15,6 +17,7 @@ function DislikedContent() {
   const username = session!.username;
 
   const [dislikedIds, setDislikedIds] = useState<string[]>([]);
+  const [categoryFilter, setCategoryFilter] = useState<string>("all");
   const [mounted, setMounted] = useState(false);
   const [relikeTarget, setRelikeTarget] = useState<string | null>(null);
 
@@ -29,6 +32,17 @@ function DislikedContent() {
       window.removeEventListener("kraft-dresses-updated", refresh);
     };
   }, []);
+
+  const filteredIds = useMemo(() => {
+    if (categoryFilter === "all") return dislikedIds;
+    return dislikedIds.filter((id) => {
+      const dress = getDressById(id);
+      return (
+        !!dress &&
+        normalizeListingCategory(dress.category) === categoryFilter
+      );
+    });
+  }, [dislikedIds, categoryFilter]);
 
   function handleRelikeClick(dressId: string) {
     ensureAccountDefaults(username);
@@ -64,13 +78,29 @@ function DislikedContent() {
         liked closet with a category.
       </p>
 
+      {mounted && (
+        <CategoryFilter
+          value={categoryFilter}
+          onChange={setCategoryFilter}
+          className="mt-6"
+        />
+      )}
+
       {!mounted ? (
         <p className="mt-10 text-sm text-espresso/50">Loading...</p>
       ) : (
         <DressGrid
-          dressIds={dislikedIds}
-          emptyTitle="No disliked dresses"
-          emptyMessage="Dresses you pass on in browse will show up here."
+          dressIds={filteredIds}
+          emptyTitle={
+            dislikedIds.length === 0
+              ? "No disliked dresses"
+              : "No items in this category"
+          }
+          emptyMessage={
+            dislikedIds.length === 0
+              ? "Dresses you pass on in browse will show up here."
+              : "Try another category or clear the filter."
+          }
           showRelike
           onRelike={handleRelikeClick}
         />
