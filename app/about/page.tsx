@@ -67,7 +67,6 @@ export default function AboutPage() {
       <PolicySection title="Returns & care">
         <ul className="list-disc space-y-2 pl-5">
           <li>Return items clean — dry cleaning is the renter&apos;s responsibility unless stated otherwise.</li>
-          <li>Use the provided garment bag or packaging when returning.</li>
           <li>Report any issues within 24 hours of receiving the item.</li>
         </ul>
       </PolicySection>
