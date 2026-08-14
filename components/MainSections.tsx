@@ -49,7 +49,7 @@ const SECTIONS = [
 
 export default function MainSections() {
   return (
-    <section className="home-sections relative mx-auto max-w-4xl px-6 pb-14 pt-2 md:pb-20 md:pt-3">
+    <section className="home-sections relative mx-auto max-w-4xl px-6 pb-2 pt-2 md:pb-4 md:pt-3">
       <div className="divide-y divide-walnut/15">
         {SECTIONS.map((section, index) => (
           <Link
