@@ -47,6 +47,7 @@ export async function POST(request: Request) {
       if (!dress?.id) continue;
       byId.set(dress.id, {
         ...dress,
+        name: typeof dress.name === "string" ? dress.name.trim() : "",
         size: dress.size ?? "Unknown",
         category: normalizeListingCategory(dress.category),
         images: Array.isArray(dress.images) ? dress.images : [],
@@ -60,7 +61,13 @@ export async function POST(request: Request) {
   }
 
   const dress = body?.dress as Omit<Dress, "id" | "listedAt"> | undefined;
-  if (!dress?.brand || !dress?.color || !dress?.size || !dress?.listedBy) {
+  if (
+    !dress?.brand ||
+    !dress?.name ||
+    !dress?.color ||
+    !dress?.size ||
+    !dress?.listedBy
+  ) {
     return NextResponse.json({ error: "Invalid clothing payload." }, { status: 400 });
   }
   if (!Array.isArray(dress.images) || dress.images.length === 0) {
@@ -77,6 +84,7 @@ export async function POST(request: Request) {
     images: dress.images,
     color: String(dress.color).trim(),
     brand: String(dress.brand).trim(),
+    name: String(dress.name).trim(),
     size: String(dress.size).trim() || "Unknown",
     category: dress.category,
     pricePerMonth: Number(dress.pricePerMonth) || 0,

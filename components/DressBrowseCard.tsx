@@ -23,7 +23,11 @@ export default function DressBrowseCard({
         {mainImage && (
           <Image
             src={mainImage}
-            alt={`${dress.brand} clothing`}
+            alt={
+              dress.name
+                ? `${dress.brand} ${dress.name}`
+                : `${dress.brand} clothing`
+            }
             fill
             className="object-cover"
             unoptimized
@@ -33,9 +37,16 @@ export default function DressBrowseCard({
       </div>
 
       <div className="p-4">
-        <p className="text-xs uppercase tracking-wider text-espresso/50">
-          {dress.brand}
-        </p>
+        <div className="flex items-baseline justify-between gap-3">
+          <p className="text-xs uppercase tracking-wider text-espresso/50">
+            {dress.brand}
+          </p>
+          {dress.name ? (
+            <p className="text-right text-sm font-medium text-espresso">
+              {dress.name}
+            </p>
+          ) : null}
+        </div>
 
         <div className="mt-3 space-y-1 text-sm text-espresso/70">
           <p>

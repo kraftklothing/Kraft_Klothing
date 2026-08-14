@@ -68,7 +68,11 @@ export default function DressGrid({
             {dress.images[0] && (
               <Image
                 src={dress.images[0]}
-                alt={`${dress.brand} clothing`}
+                alt={
+                  dress.name
+                    ? `${dress.brand} ${dress.name}`
+                    : `${dress.brand} clothing`
+                }
                 fill
                 className="object-cover"
                 unoptimized
@@ -89,9 +93,20 @@ export default function DressGrid({
                 ))}
               </div>
             )}
-            <p className="mt-2 text-xs uppercase tracking-wider text-espresso/50">
-              {dress.brand}
-            </p>
+            <div
+              className={`flex items-baseline justify-between gap-3 ${
+                categoryLabels[dress.id]?.length > 0 ? "mt-2" : ""
+              }`}
+            >
+              <p className="text-xs uppercase tracking-wider text-espresso/50">
+                {dress.brand}
+              </p>
+              {dress.name ? (
+                <p className="text-right text-sm font-medium text-espresso">
+                  {dress.name}
+                </p>
+              ) : null}
+            </div>
             <div className="mt-3 space-y-1 text-sm text-espresso/70">
               <p>
                 <span className="text-espresso/50">Category:</span>{" "}

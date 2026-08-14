@@ -30,6 +30,7 @@ export default function DressForm({ dress, listedBy, onSuccess }: DressFormProps
   );
   const [color, setColor] = useState(dress?.color ?? "");
   const [brand, setBrand] = useState(dress?.brand ?? "");
+  const [name, setName] = useState(dress?.name ?? "");
   const [pricePerMonth, setPricePerMonth] = useState(
     dress ? String(dress.pricePerMonth) : ""
   );
@@ -69,6 +70,7 @@ export default function DressForm({ dress, listedBy, onSuccess }: DressFormProps
       images,
       color: color.trim(),
       brand: brand.trim(),
+      name: name.trim(),
       size: size.trim(),
       category,
       pricePerMonth: Number(pricePerMonth),
@@ -215,6 +217,20 @@ export default function DressForm({ dress, listedBy, onSuccess }: DressFormProps
             value={brand}
             onChange={(e) => setBrand(e.target.value)}
             placeholder="e.g. Reformation, Zara"
+            className="mt-1.5 w-full rounded-xl border border-sand bg-white px-4 py-3 text-sm outline-none focus:border-terracotta"
+          />
+        </label>
+
+        <label className="block">
+          <span className="text-xs font-medium uppercase tracking-wider text-espresso/50">
+            Item name
+          </span>
+          <input
+            type="text"
+            required
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="e.g. Striped Oversized Jacket"
             className="mt-1.5 w-full rounded-xl border border-sand bg-white px-4 py-3 text-sm outline-none focus:border-terracotta"
           />
         </label>

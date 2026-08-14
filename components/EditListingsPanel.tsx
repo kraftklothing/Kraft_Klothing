@@ -138,7 +138,8 @@ export default function EditListingsPanel() {
                   <div className="flex flex-1 flex-col justify-between sm:flex-row sm:items-center">
                     <div>
                       <p className="font-medium text-espresso">
-                        {dress.brand} · {dress.color}
+                        {dress.brand}
+                        {dress.name ? ` · ${dress.name}` : ""} · {dress.color}
                       </p>
                       <p className="text-sm text-espresso/60">
                         {dress.category} · Size {dress.size} ·{" "}

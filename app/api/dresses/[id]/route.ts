@@ -52,6 +52,10 @@ export async function PATCH(request: Request, context: RouteContext) {
     id: dresses[index].id,
     listedAt: dresses[index].listedAt,
     listedBy: dresses[index].listedBy,
+    name:
+      updates.name !== undefined
+        ? String(updates.name).trim()
+        : dresses[index].name ?? "",
     category: normalizeListingCategory(
       updates.category ?? dresses[index].category
     ),
