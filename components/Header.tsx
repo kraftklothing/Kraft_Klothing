@@ -99,12 +99,14 @@ export default function Header() {
               Login
             </Link>
           )}
-          <Link
-            href="/browse"
-            className="rounded-full bg-espresso px-4 py-2 text-sm font-medium text-cream"
-          >
-            Browse
-          </Link>
+          {!(mounted && isModerator) && (
+            <Link
+              href="/browse"
+              className="rounded-full bg-espresso px-4 py-2 text-sm font-medium text-cream"
+            >
+              Browse
+            </Link>
+          )}
         </div>
       </div>
     </header>
