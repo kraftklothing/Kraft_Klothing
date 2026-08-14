@@ -68,7 +68,7 @@ export async function loadDresses(): Promise<Dress[]> {
     }
 
     if (!response.ok) {
-      throw new Error("Failed to load shared dresses");
+      throw new Error("Failed to load shared clothing");
     }
 
     const data = (await response.json()) as {

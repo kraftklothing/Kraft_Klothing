@@ -52,7 +52,7 @@ export default function LikeCategoryModal({
           Add to your closet
         </h2>
         <p className="mt-2 text-sm text-espresso/60">
-          Select one or more categories for this dress.
+          Select one or more categories for this clothing.
         </p>
 
         {categories.length === 0 ? (

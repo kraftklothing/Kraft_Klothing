@@ -71,10 +71,10 @@ function DislikedContent() {
         Passed items
       </p>
       <h1 className="mt-2 font-serif text-4xl text-espresso">
-        Disliked Dresses
+        Disliked Clothing
       </h1>
       <p className="mt-3 text-espresso/60">
-        Dresses you passed on. Changed your mind? Tap ♥ to move one to your
+        Clothing you passed on. Changed your mind? Tap ♥ to move one to your
         liked closet with a category.
       </p>
 
@@ -93,12 +93,12 @@ function DislikedContent() {
           dressIds={filteredIds}
           emptyTitle={
             dislikedIds.length === 0
-              ? "No disliked dresses"
+              ? "No disliked clothing"
               : "No items in this category"
           }
           emptyMessage={
             dislikedIds.length === 0
-              ? "Dresses you pass on in browse will show up here."
+              ? "Clothing you pass on in browse will show up here."
               : "Try another category or clear the filter."
           }
           showRelike
