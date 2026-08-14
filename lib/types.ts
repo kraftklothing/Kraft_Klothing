@@ -4,6 +4,8 @@ export type Dress = {
   color: string;
   brand: string;
   size: string;
+  /** Inventory taxonomy used for filtering across views. */
+  category: string;
   pricePerMonth: number;
   listedAt: string;
   listedBy: string;

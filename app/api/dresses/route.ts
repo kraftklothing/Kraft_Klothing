@@ -1,5 +1,9 @@
 import { NextResponse } from "next/server";
 import {
+  isListingCategory,
+  normalizeListingCategory,
+} from "@/lib/categories";
+import {
   isSharedStoreConfigured,
   readSharedDresses,
   writeSharedDresses,
@@ -44,6 +48,7 @@ export async function POST(request: Request) {
       byId.set(dress.id, {
         ...dress,
         size: dress.size ?? "Unknown",
+        category: normalizeListingCategory(dress.category),
         images: Array.isArray(dress.images) ? dress.images : [],
       });
     }
@@ -61,12 +66,19 @@ export async function POST(request: Request) {
   if (!Array.isArray(dress.images) || dress.images.length === 0) {
     return NextResponse.json({ error: "At least one image is required." }, { status: 400 });
   }
+  if (!isListingCategory(dress.category)) {
+    return NextResponse.json(
+      { error: "A valid listing category is required." },
+      { status: 400 }
+    );
+  }
 
   const created: Dress = {
     images: dress.images,
     color: String(dress.color).trim(),
     brand: String(dress.brand).trim(),
     size: String(dress.size).trim() || "Unknown",
+    category: dress.category,
     pricePerMonth: Number(dress.pricePerMonth) || 0,
     listedBy: String(dress.listedBy).trim(),
     id: crypto.randomUUID(),

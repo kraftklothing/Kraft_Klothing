@@ -1,5 +1,9 @@
 import { NextResponse } from "next/server";
 import {
+  isListingCategory,
+  normalizeListingCategory,
+} from "@/lib/categories";
+import {
   isSharedStoreConfigured,
   readSharedDresses,
   writeSharedDresses,
@@ -32,12 +36,25 @@ export async function PATCH(request: Request, context: RouteContext) {
     return NextResponse.json({ error: "Dress not found." }, { status: 404 });
   }
 
+  if (
+    updates.category !== undefined &&
+    !isListingCategory(updates.category)
+  ) {
+    return NextResponse.json(
+      { error: "A valid listing category is required." },
+      { status: 400 }
+    );
+  }
+
   dresses[index] = {
     ...dresses[index],
     ...updates,
     id: dresses[index].id,
     listedAt: dresses[index].listedAt,
     listedBy: dresses[index].listedBy,
+    category: normalizeListingCategory(
+      updates.category ?? dresses[index].category
+    ),
   };
 
   await writeSharedDresses(dresses);

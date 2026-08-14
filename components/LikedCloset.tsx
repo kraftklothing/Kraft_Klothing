@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import CategoryFilter from "@/components/CategoryFilter";
 import DressGrid from "@/components/DressGrid";
 import InlineFilterEditor from "@/components/InlineFilterEditor";
 import RentModal from "@/components/RentModal";
@@ -15,6 +16,7 @@ import {
   getCategories,
   getFitLabels,
 } from "@/lib/account";
+import { normalizeListingCategory } from "@/lib/categories";
 import { getDressById, loadDresses } from "@/lib/dresses";
 import { getLiked, removeFromLiked, updateLikedDress } from "@/lib/preferences";
 import { LikedDress } from "@/lib/types";
@@ -31,6 +33,7 @@ export default function LikedCloset() {
     { id: string; name: string }[]
   >([]);
   const [activeCategory, setActiveCategory] = useState<string>("all");
+  const [activeItemCategory, setActiveItemCategory] = useState<string>("all");
   const [activeFitFilter, setActiveFitFilter] = useState<string>("all");
   const [activeColorFilter, setActiveColorFilter] = useState<string>("all");
   const [editingCategories, setEditingCategories] = useState(false);
@@ -78,6 +81,15 @@ export default function LikedCloset() {
         if (activeCategory !== "all" && !l.categoryIds.includes(activeCategory)) {
           return false;
         }
+        if (activeItemCategory !== "all") {
+          const dress = getDressById(l.dressId);
+          if (
+            !dress ||
+            normalizeListingCategory(dress.category) !== activeItemCategory
+          ) {
+            return false;
+          }
+        }
         if (activeFitFilter !== "all" && l.fitLabel !== activeFitFilter) {
           return false;
         }
@@ -88,7 +100,7 @@ export default function LikedCloset() {
         return true;
       })
       .map((l) => l.dressId);
-  }, [liked, activeCategory, activeFitFilter, activeColorFilter]);
+  }, [liked, activeCategory, activeItemCategory, activeFitFilter, activeColorFilter]);
 
   const categoryLabels = useMemo(() => {
     const map: Record<string, string[]> = {};
@@ -135,8 +147,12 @@ export default function LikedCloset() {
       </p>
       <h1 className="mt-2 font-serif text-4xl text-espresso">Liked Dresses</h1>
       <p className="mt-3 text-espresso/60">
+<<<<<<< HEAD
+        Label fit, filter by item type, closet, or color, and rent when ready.
+=======
         Label fit, filter by category or color, rent when ready, or unlike to
         remove a dress from this closet.
+>>>>>>> origin/master
       </p>
 
       {mounted && (
@@ -152,6 +168,12 @@ export default function LikedCloset() {
 
           {filtersOpen && (
             <div className="mt-4 space-y-4">
+              <CategoryFilter
+                value={activeItemCategory}
+                onChange={setActiveItemCategory}
+                label="Filter by item category"
+              />
+
               <div>
                 <FilterHeader
                   title="Filter by fit"
@@ -191,7 +213,7 @@ export default function LikedCloset() {
 
               <div>
                 <FilterHeader
-                  title="Filter by category"
+                  title="Filter by closet"
                   editing={editingCategories}
                   onEdit={() => setEditingCategories((v) => !v)}
                 />
@@ -206,7 +228,7 @@ export default function LikedCloset() {
                       deleteCategory(username, id);
                       refresh();
                     }}
-                    placeholder="New category..."
+                    placeholder="New closet..."
                   />
                 )}
                 <div className="mt-2 flex flex-wrap gap-2">
@@ -259,7 +281,7 @@ export default function LikedCloset() {
         <DressGrid
           dressIds={filteredIds}
           emptyTitle="No dresses match these filters"
-          emptyMessage="Try a different fit, category, or color filter."
+          emptyMessage="Try a different fit, item category, closet, or color filter."
           showRent
           showUnlike
           showFitLabel

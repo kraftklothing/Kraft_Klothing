@@ -39,6 +39,9 @@ export default function DressBrowseCard({
 
         <div className="mt-3 space-y-1 text-sm text-espresso/70">
           <p>
+            <span className="text-espresso/50">Category:</span> {dress.category}
+          </p>
+          <p>
             <span className="text-espresso/50">Size:</span> {dress.size}
           </p>
           <p>
