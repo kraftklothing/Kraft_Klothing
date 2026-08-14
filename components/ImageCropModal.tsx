@@ -107,6 +107,11 @@ export default function ImageCropModal({
     const ctx = output.getContext("2d");
     if (!ctx) return;
 
+    // JPEG has no alpha — unfilled pixels become black. Fill white first so
+    // letterboxed/empty areas from cropping match product photo backgrounds.
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, output.width, output.height);
+
     const scaleX = output.width / cw;
     const scaleY = output.height / ch;
     ctx.drawImage(
