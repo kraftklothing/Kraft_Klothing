@@ -11,6 +11,7 @@ export const LISTING_CATEGORIES = [
   "Tank Tops",
   "Shoes",
   "Sports Equipment",
+  "Matching Pieces",
 ] as const;
 
 export type ListingCategory = (typeof LISTING_CATEGORIES)[number];
