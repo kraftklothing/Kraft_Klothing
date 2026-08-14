@@ -5,11 +5,55 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    height: 100%;
+    overflow-x: hidden;
+    /* Reduce accidental double-tap zoom on iOS */
+    touch-action: manipulation;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
 
   body {
     @apply bg-cream text-espresso antialiased;
+    min-height: 100%;
+    min-height: 100dvh;
+    overflow-x: hidden;
+    overscroll-behavior: none;
+    touch-action: manipulation;
   }
+
+  a,
+  button,
+  input,
+  select,
+  textarea,
+  label,
+  summary {
+    touch-action: manipulation;
+  }
+
+  /* iOS zooms focused fields under 16px — keep controls at rem size on small screens */
+  @media screen and (max-width: 768px) {
+    input,
+    select,
+    textarea {
+      font-size: 1rem !important;
+    }
+  }
+}
+
+/* One-screen app chrome: header + main fill the viewport */
+.app-shell {
+  display: flex;
+  min-height: 100dvh;
+  flex-direction: column;
+}
+
+.app-main {
+  display: flex;
+  min-height: 0;
+  flex: 1;
+  flex-direction: column;
 }
 
 @layer utilities {

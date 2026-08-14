@@ -49,13 +49,13 @@ const SECTIONS = [
 
 export default function MainSections() {
   return (
-    <section className="home-sections relative mx-auto max-w-4xl px-6 pb-14 pt-2 md:pb-20 md:pt-3">
+    <section className="home-sections relative mx-auto w-full max-w-4xl px-6 pb-6 pt-1 md:pb-8 md:pt-2">
       <div className="divide-y divide-walnut/15">
         {SECTIONS.map((section, index) => (
           <Link
             key={section.href}
             href={section.href}
-            className="home-link group flex items-center gap-5 px-2 py-6 transition-colors hover:bg-walnut/[0.06] sm:px-4"
+            className="home-link group flex items-center gap-5 px-2 py-4 transition-colors hover:bg-walnut/[0.06] sm:px-4 sm:py-5"
             style={{ animationDelay: `${0.12 + index * 0.06}s` }}
           >
             <span

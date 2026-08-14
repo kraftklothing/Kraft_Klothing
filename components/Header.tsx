@@ -15,8 +15,8 @@ export default function Header() {
   const { session, isModerator, mounted } = useAuth();
 
   return (
-    <header className="sticky top-0 z-50 border-b border-sand/60 bg-cream/90 backdrop-blur-md">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+    <header className="sticky top-0 z-50 shrink-0 border-b border-sand/60 bg-cream/90 backdrop-blur-md">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3 md:py-4">
         <Link href="/" className="group flex flex-col leading-none">
           <span className="font-serif text-2xl tracking-wide text-espresso transition-colors group-hover:text-terracotta">
             Kraft Klothing
