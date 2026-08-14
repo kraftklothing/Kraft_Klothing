@@ -107,6 +107,12 @@ export function dislikeDress(id: string): void {
   writePreferences(prefs);
 }
 
+export function removeFromLiked(id: string): void {
+  const prefs = readPreferences();
+  prefs.liked = prefs.liked.filter((l) => l.dressId !== id);
+  writePreferences(prefs);
+}
+
 export function removeFromDisliked(id: string): void {
   const prefs = readPreferences();
   prefs.dislikedIds = prefs.dislikedIds.filter((d) => d !== id);
