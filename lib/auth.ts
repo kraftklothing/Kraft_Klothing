@@ -1,4 +1,4 @@
-import { AuthSession, StoredUser } from "./types";
+import { AuthSession, StoredUser, UserRole } from "./types";
 
 export const AUTH_STORAGE_KEY = "kraft-klothing-auth";
 export const USERS_STORAGE_KEY = "kraft-klothing-users";
@@ -10,6 +10,17 @@ const MODERATOR_PASSWORD = "swimmingwolvesrock510";
 const SANDBOX_USERNAME = "shopperpogger";
 const SANDBOX_PASSWORD = "poggershopper";
 const SANDBOX_DISPLAY_NAME = "shopperpogger";
+
+export type AccountDirectoryEntry = {
+  username: string;
+  role: UserRole;
+  builtIn: boolean;
+};
+
+const BUILT_IN_ACCOUNTS: AccountDirectoryEntry[] = [
+  { username: "Ked2000", role: "moderator", builtIn: true },
+  { username: SANDBOX_DISPLAY_NAME, role: "sandbox", builtIn: true },
+];
 
 function readUsers(): StoredUser[] {
   if (typeof window === "undefined") return [];
@@ -34,6 +45,36 @@ function saveSession(session: AuthSession): AuthSession {
 
 export function isSandboxUsername(username: string): boolean {
   return username.trim().toLowerCase() === SANDBOX_USERNAME;
+}
+
+/** All known accounts with their access type (for moderator directory). */
+export function listAccounts(): AccountDirectoryEntry[] {
+  const reserved = new Set(
+    BUILT_IN_ACCOUNTS.map((a) => a.username.toLowerCase())
+  );
+  const registered: AccountDirectoryEntry[] = readUsers()
+    .filter((u) => !reserved.has(u.username.toLowerCase()))
+    .map((u) => ({
+      username: u.username,
+      role: "user" as const,
+      builtIn: false,
+    }));
+
+  return [...BUILT_IN_ACCOUNTS, ...registered].sort((a, b) =>
+    a.username.localeCompare(b.username, undefined, { sensitivity: "base" })
+  );
+}
+
+export function accessLabel(role: UserRole): string {
+  switch (role) {
+    case "moderator":
+      return "Moderator";
+    case "sandbox":
+      return "Sandbox shopper";
+    case "user":
+    default:
+      return "Member shopper";
+  }
 }
 
 export function signUp(username: string, password: string): AuthSession | { error: string } {
