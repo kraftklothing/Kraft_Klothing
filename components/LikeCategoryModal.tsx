@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { ensureAccountDefaults, getCategories } from "@/lib/account";
 
+const EMPTY_CATEGORY_IDS: string[] = [];
+
 type LikeCategoryModalProps = {
   username: string;
   open: boolean;
@@ -16,12 +18,16 @@ export default function LikeCategoryModal({
   open,
   onClose,
   onConfirm,
-  initialCategoryIds = [],
+  initialCategoryIds = EMPTY_CATEGORY_IDS,
 }: LikeCategoryModalProps) {
   const [categories, setCategories] = useState<{ id: string; name: string }[]>(
     []
   );
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
+
+  // Stabilize the dependency: a fresh `[]` default (or parent inline array)
+  // would re-run this effect after every toggle and wipe the selection.
+  const initialKey = initialCategoryIds.join("\0");
 
   useEffect(() => {
     if (!open) return;
@@ -30,12 +36,14 @@ export default function LikeCategoryModal({
     setCategories(cats);
     setSelectedIds(
       initialCategoryIds.length > 0
-        ? initialCategoryIds
+        ? [...initialCategoryIds]
         : cats[0]
           ? [cats[0].id]
           : []
     );
-  }, [open, username, initialCategoryIds]);
+    // initialCategoryIds is represented by initialKey above
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- sync only on open / account / ids content
+  }, [open, username, initialKey]);
 
   function toggleCategory(id: string) {
     setSelectedIds((prev) =>
