@@ -28,6 +28,7 @@ function normalizeDresses(value: unknown): Dress[] {
     .filter((item): item is Dress => !!item && typeof item === "object")
     .map((dress) => ({
       ...dress,
+      name: typeof dress.name === "string" ? dress.name.trim() : "",
       size: dress.size ?? "Unknown",
       category: normalizeListingCategory(dress.category),
       images: Array.isArray(dress.images) ? dress.images : [],

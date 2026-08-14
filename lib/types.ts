@@ -3,6 +3,8 @@ export type Dress = {
   images: string[];
   color: string;
   brand: string;
+  /** Item name shown beside the brand on listing cards. */
+  name: string;
   size: string;
   /** Inventory taxonomy used for filtering across views. */
   category: string;
