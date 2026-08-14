@@ -5,7 +5,7 @@ const ICON = "#7A5230";
 const SECTIONS = [
   {
     href: "/browse",
-    title: "Browse All Dresses",
+    title: "Browse All Clothing",
     icon: (
       <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={ICON} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="12" cy="4" r="1.5" />
@@ -16,7 +16,7 @@ const SECTIONS = [
   },
   {
     href: "/liked",
-    title: "Liked Dresses",
+    title: "Liked Clothing",
     icon: (
       <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={ICON} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
@@ -49,7 +49,7 @@ const SECTIONS = [
 
 export default function MainSections() {
   return (
-    <section className="home-sections relative mx-auto max-w-4xl px-6 pb-14 pt-2 md:pb-20 md:pt-3">
+    <section className="home-sections relative mx-auto max-w-4xl px-6 pb-2 pt-2 md:pb-4 md:pt-3">
       <div className="divide-y divide-walnut/15">
         {SECTIONS.map((section, index) => (
           <Link

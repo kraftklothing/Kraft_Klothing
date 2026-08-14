@@ -68,7 +68,7 @@ export async function POST(request: Request) {
     !dress?.size ||
     !dress?.listedBy
   ) {
-    return NextResponse.json({ error: "Invalid dress payload." }, { status: 400 });
+    return NextResponse.json({ error: "Invalid clothing payload." }, { status: 400 });
   }
   if (!Array.isArray(dress.images) || dress.images.length === 0) {
     return NextResponse.json({ error: "At least one image is required." }, { status: 400 });

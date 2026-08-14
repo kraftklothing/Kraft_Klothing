@@ -1,4 +1,5 @@
 import MainSections from "@/components/MainSections";
+import MonthlyBundleDemo from "@/components/MonthlyBundleDemo";
 
 export default function HomePage() {
   return (
@@ -25,6 +26,7 @@ export default function HomePage() {
       </section>
 
       <MainSections />
+      <MonthlyBundleDemo />
     </div>
   );
 }

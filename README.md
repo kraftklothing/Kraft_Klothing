@@ -1,6 +1,6 @@
 # Kraft Klothing
 
-A peer-to-peer marketplace for renting dresses and one-time wear fashion.
+A peer-to-peer marketplace for renting clothing and one-time wear fashion.
 
 ## What's included (MVP)
 

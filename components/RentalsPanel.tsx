@@ -176,7 +176,7 @@ function RentalGroup({
               >
                 <div className="min-w-0 flex-1">
                   <p className="text-sm font-medium text-espresso">
-                    {dress?.brand ?? "Dress"}
+                    {dress?.brand ?? "Clothing"}
                     {dress?.name ? ` · ${dress.name}` : ""}
                     {dress?.size ? ` · Size ${dress.size}` : ""}
                   </p>
@@ -213,8 +213,8 @@ function RentalGroup({
                         dress?.name
                           ? `${dress.brand} ${dress.name}`
                           : dress?.brand
-                            ? `${dress.brand} dress`
-                            : "Dress"
+                            ? `${dress.brand} clothing`
+                            : "Clothing"
                       }
                       fill
                       className="object-cover"

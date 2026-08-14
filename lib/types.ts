@@ -81,7 +81,7 @@ export type Rental = {
   sandbox?: boolean;
 };
 
-/** Text waitlist for a dress+month that is currently booked. */
+/** Text waitlist for a clothing item + month that is currently booked. */
 export type AvailabilityAlert = {
   id: string;
   dressId: string;

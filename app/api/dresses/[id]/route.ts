@@ -33,7 +33,7 @@ export async function PATCH(request: Request, context: RouteContext) {
   const dresses = (await readSharedDresses()) ?? [];
   const index = dresses.findIndex((d) => d.id === id);
   if (index === -1) {
-    return NextResponse.json({ error: "Dress not found." }, { status: 404 });
+    return NextResponse.json({ error: "Clothing not found." }, { status: 404 });
   }
 
   if (
@@ -81,7 +81,7 @@ export async function DELETE(_request: Request, context: RouteContext) {
   const dresses = (await readSharedDresses()) ?? [];
   const next = dresses.filter((d) => d.id !== id);
   if (next.length === dresses.length) {
-    return NextResponse.json({ error: "Dress not found." }, { status: 404 });
+    return NextResponse.json({ error: "Clothing not found." }, { status: 404 });
   }
 
   await writeSharedDresses(next);

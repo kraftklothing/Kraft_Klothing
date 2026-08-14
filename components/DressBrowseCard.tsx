@@ -23,7 +23,11 @@ export default function DressBrowseCard({
         {mainImage && (
           <Image
             src={mainImage}
-            alt={dress.name ? `${dress.brand} ${dress.name}` : `${dress.brand} dress`}
+            alt={
+              dress.name
+                ? `${dress.brand} ${dress.name}`
+                : `${dress.brand} clothing`
+            }
             fill
             className="object-cover"
             unoptimized
@@ -63,7 +67,7 @@ export default function DressBrowseCard({
             type="button"
             onClick={() => onLike(dress.id)}
             className="flex flex-1 items-center justify-center gap-2 rounded-full border border-sand py-2.5 text-sm font-medium transition-colors hover:border-terracotta hover:bg-terracotta/10"
-            aria-label="Like dress"
+            aria-label="Like clothing"
           >
             ♥ Like
           </button>
@@ -71,7 +75,7 @@ export default function DressBrowseCard({
             type="button"
             onClick={() => onDislike(dress.id)}
             className="flex flex-1 items-center justify-center gap-2 rounded-full border border-sand py-2.5 text-sm font-medium transition-colors hover:border-espresso/30 hover:bg-espresso/5"
-            aria-label="Dislike dress"
+            aria-label="Dislike clothing"
           >
             ✕ Pass
           </button>

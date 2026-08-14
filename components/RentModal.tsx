@@ -153,7 +153,7 @@ export default function RentModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-espresso/40 p-4 backdrop-blur-sm">
       <div className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-2xl border border-sand bg-cream p-6 shadow-xl">
-        <h2 className="font-serif text-2xl text-espresso">Rent this dress</h2>
+        <h2 className="font-serif text-2xl text-espresso">Rent this clothing</h2>
         <p className="mt-1 text-sm text-espresso/60">
           {dress.brand}
           {dress.name ? ` · ${dress.name}` : ""} · Size {dress.size} ·{" "}
@@ -161,8 +161,8 @@ export default function RentModal({
         </p>
         {isSandboxUsername(username) && (
           <p className="mt-3 rounded-xl bg-sand/60 px-3 py-2 text-xs text-espresso/70">
-            Sandbox mode: this rental is demo-only and will not reserve the dress
-            for other accounts.
+            Sandbox mode: this rental is demo-only and will not reserve the
+            clothing for other accounts.
           </p>
         )}
 

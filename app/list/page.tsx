@@ -45,7 +45,7 @@ export default function ListPage() {
       <p className="mt-8 text-xs font-semibold uppercase tracking-[0.3em] text-terracotta">
         Moderator access
       </p>
-      <h1 className="mt-2 font-serif text-4xl text-espresso">List a Dress</h1>
+      <h1 className="mt-2 font-serif text-4xl text-espresso">List Clothing</h1>
       <p className="mt-4 leading-relaxed text-espresso/70">
         Add photos, crop them, and list to the site for everyone to browse.
       </p>

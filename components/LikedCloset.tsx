@@ -145,10 +145,10 @@ export default function LikedCloset() {
       <p className="mt-8 text-xs font-semibold uppercase tracking-[0.3em] text-terracotta">
         Saved favorites
       </p>
-      <h1 className="mt-2 font-serif text-4xl text-espresso">Liked Dresses</h1>
+      <h1 className="mt-2 font-serif text-4xl text-espresso">Liked Clothing</h1>
       <p className="mt-3 text-espresso/60">
-        Label fit, filter by category or color, rent when ready, or unlike to
-        remove a dress from this closet.
+        Label fit, filter by item type, closet, or color, rent when ready, or
+        unlike to remove clothing from this closet.
       </p>
 
       {mounted && (
@@ -276,7 +276,7 @@ export default function LikedCloset() {
       ) : (
         <DressGrid
           dressIds={filteredIds}
-          emptyTitle="No dresses match these filters"
+          emptyTitle="No clothing matches these filters"
           emptyMessage="Try a different fit, item category, closet, or color filter."
           showRent
           showUnlike

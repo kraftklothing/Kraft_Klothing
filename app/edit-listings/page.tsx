@@ -16,7 +16,7 @@ export default function EditListingsPage() {
       </p>
       <h1 className="mt-2 font-serif text-4xl text-espresso">Edit Listings</h1>
       <p className="mt-4 leading-relaxed text-espresso/70">
-        Update or remove dresses you&apos;ve already posted.
+        Update or remove clothing you&apos;ve already posted.
       </p>
 
       <EditListingsPanel />

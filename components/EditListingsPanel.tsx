@@ -91,13 +91,13 @@ export default function EditListingsPanel() {
         <div className="mt-10 rounded-2xl border border-sand bg-white p-10 text-center">
           <p className="font-serif text-xl text-espresso">No listings yet</p>
           <p className="mt-2 text-sm text-espresso/60">
-            Use List to add your first dress.
+            Use List to add your first clothing item.
           </p>
           <Link
             href="/list"
             className="mt-6 inline-block rounded-full bg-espresso px-6 py-3 text-sm font-medium text-cream hover:bg-terracotta"
           >
-            List a dress
+            List clothing
           </Link>
         </div>
       ) : (
