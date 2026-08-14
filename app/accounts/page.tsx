@@ -1,0 +1,26 @@
+import Link from "next/link";
+import AccountsPanel from "@/components/AccountsPanel";
+
+export default function AccountsPage() {
+  return (
+    <div className="mx-auto max-w-2xl px-6 py-12">
+      <Link
+        href="/"
+        className="text-sm text-espresso/50 transition-colors hover:text-terracotta"
+      >
+        ← Back to home
+      </Link>
+
+      <p className="mt-8 text-xs font-semibold uppercase tracking-[0.3em] text-terracotta">
+        Moderator access
+      </p>
+      <h1 className="mt-2 font-serif text-4xl text-espresso">Accounts</h1>
+      <p className="mt-4 leading-relaxed text-espresso/70">
+        See every account and which of the three access types they have:
+        moderator, member shopper, or sandbox shopper.
+      </p>
+
+      <AccountsPanel />
+    </div>
+  );
+}

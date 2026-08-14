@@ -58,6 +58,12 @@ export default function Header() {
               >
                 Edit listings
               </Link>
+              <Link
+                href="/accounts"
+                className="rounded-full border border-terracotta px-4 py-2 text-sm font-medium text-terracotta transition-colors hover:bg-terracotta hover:text-cream"
+              >
+                Accounts
+              </Link>
             </>
           )}
         </nav>
@@ -77,6 +83,12 @@ export default function Header() {
               >
                 Edit
               </Link>
+              <Link
+                href="/accounts"
+                className="rounded-full border border-terracotta px-3 py-1.5 text-xs font-medium text-terracotta"
+              >
+                Accounts
+              </Link>
             </>
           )}
           {mounted && !session && (
@@ -87,12 +99,14 @@ export default function Header() {
               Login
             </Link>
           )}
-          <Link
-            href="/browse"
-            className="rounded-full bg-espresso px-4 py-2 text-sm font-medium text-cream"
-          >
-            Browse
-          </Link>
+          {!(mounted && isModerator) && (
+            <Link
+              href="/browse"
+              className="rounded-full bg-espresso px-4 py-2 text-sm font-medium text-cream"
+            >
+              Browse
+            </Link>
+          )}
         </div>
       </div>
     </header>
