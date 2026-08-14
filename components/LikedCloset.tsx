@@ -18,7 +18,7 @@ import {
 } from "@/lib/account";
 import { normalizeListingCategory } from "@/lib/categories";
 import { getDressById, loadDresses } from "@/lib/dresses";
-import { getLiked, updateLikedDress } from "@/lib/preferences";
+import { getLiked, removeFromLiked, updateLikedDress } from "@/lib/preferences";
 import { LikedDress } from "@/lib/types";
 
 export default function LikedCloset() {
@@ -126,6 +126,11 @@ export default function LikedCloset() {
     refresh();
   }
 
+  function handleUnlike(dressId: string) {
+    removeFromLiked(dressId);
+    refresh();
+  }
+
   if (!session) return null;
 
   return (
@@ -142,7 +147,12 @@ export default function LikedCloset() {
       </p>
       <h1 className="mt-2 font-serif text-4xl text-espresso">Liked Dresses</h1>
       <p className="mt-3 text-espresso/60">
+<<<<<<< HEAD
         Label fit, filter by item type, closet, or color, and rent when ready.
+=======
+        Label fit, filter by category or color, rent when ready, or unlike to
+        remove a dress from this closet.
+>>>>>>> origin/master
       </p>
 
       {mounted && (
@@ -273,11 +283,13 @@ export default function LikedCloset() {
           emptyTitle="No dresses match these filters"
           emptyMessage="Try a different fit, item category, closet, or color filter."
           showRent
+          showUnlike
           showFitLabel
           categoryLabels={categoryLabels}
           fitLabelOptions={fitLabelOptions}
           assignedFitLabels={assignedFitLabels}
           onFitLabelChange={handleFitLabelChange}
+          onUnlike={handleUnlike}
           onRent={setRentTarget}
         />
       )}

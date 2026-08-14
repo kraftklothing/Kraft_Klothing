@@ -10,12 +10,14 @@ type DressGridProps = {
   emptyTitle: string;
   emptyMessage: string;
   showRelike?: boolean;
+  showUnlike?: boolean;
   showRent?: boolean;
   showFitLabel?: boolean;
   categoryLabels?: Record<string, string[]>;
   fitLabelOptions?: FitLabelOption[];
   assignedFitLabels?: Record<string, string | undefined>;
   onRelike?: (dressId: string) => void;
+  onUnlike?: (dressId: string) => void;
   onRent?: (dressId: string) => void;
   onFitLabelChange?: (dressId: string, labelId: string) => void;
 };
@@ -25,12 +27,14 @@ export default function DressGrid({
   emptyTitle,
   emptyMessage,
   showRelike = false,
+  showUnlike = false,
   showRent = false,
   showFitLabel = false,
   categoryLabels = {},
   fitLabelOptions = [],
   assignedFitLabels = {},
   onRelike,
+  onUnlike,
   onRent,
   onFitLabelChange,
 }: DressGridProps) {
@@ -135,6 +139,15 @@ export default function DressGrid({
                   className="w-full rounded-full bg-espresso py-2.5 text-sm font-medium text-cream transition-colors hover:bg-terracotta"
                 >
                   Rent
+                </button>
+              )}
+              {showUnlike && onUnlike && (
+                <button
+                  type="button"
+                  onClick={() => onUnlike(dress.id)}
+                  className="w-full rounded-full border border-sand py-2.5 text-sm font-medium text-espresso/70 transition-colors hover:border-terracotta hover:bg-terracotta/10 hover:text-espresso"
+                >
+                  Unlike
                 </button>
               )}
               {showRelike && onRelike && (
