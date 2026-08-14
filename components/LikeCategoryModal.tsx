@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ensureAccountDefaults, getCategories } from "@/lib/account";
 
 const EMPTY_CATEGORY_IDS: string[] = [];
@@ -24,13 +24,19 @@ export default function LikeCategoryModal({
     []
   );
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
-
-  // Stabilize the dependency: a fresh `[]` default (or parent inline array)
-  // would re-run this effect after every toggle and wipe the selection.
-  const initialKey = initialCategoryIds.join("\0");
+  const wasOpen = useRef(false);
 
   useEffect(() => {
-    if (!open) return;
+    if (!open) {
+      wasOpen.current = false;
+      return;
+    }
+
+    // Only hydrate when the modal opens — never on later re-renders,
+    // which previously wiped checkbox toggles mid-interaction.
+    if (wasOpen.current) return;
+    wasOpen.current = true;
+
     ensureAccountDefaults(username);
     const cats = getCategories(username);
     setCategories(cats);
@@ -41,9 +47,7 @@ export default function LikeCategoryModal({
           ? [cats[0].id]
           : []
     );
-    // initialCategoryIds is represented by initialKey above
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- sync only on open / account / ids content
-  }, [open, username, initialKey]);
+  }, [open, username, initialCategoryIds]);
 
   function toggleCategory(id: string) {
     setSelectedIds((prev) =>
@@ -54,9 +58,18 @@ export default function LikeCategoryModal({
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-espresso/40 p-4 backdrop-blur-sm">
-      <div className="w-full max-w-md rounded-2xl border border-sand bg-cream p-6 shadow-xl">
-        <h2 className="font-serif text-2xl text-espresso">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-espresso/40 p-4 backdrop-blur-sm">
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="like-category-title"
+        className="w-full max-w-md rounded-2xl border border-sand bg-cream p-6 shadow-xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <h2
+          id="like-category-title"
+          className="font-serif text-2xl text-espresso"
+        >
           Add to your closet
         </h2>
         <p className="mt-2 text-sm text-espresso/60">
@@ -68,27 +81,47 @@ export default function LikeCategoryModal({
             Create categories in My Account first.
           </p>
         ) : (
-          <div className="mt-6 space-y-2">
-            {categories.map((cat) => (
-              <label
-                key={cat.id}
-                className={`flex cursor-pointer items-center gap-3 rounded-xl border px-4 py-3 transition-colors ${
-                  selectedIds.includes(cat.id)
-                    ? "border-terracotta bg-terracotta/10"
-                    : "border-sand bg-white hover:border-terracotta/30"
-                }`}
-              >
-                <input
-                  type="checkbox"
-                  checked={selectedIds.includes(cat.id)}
-                  onChange={() => toggleCategory(cat.id)}
-                  className="accent-terracotta"
-                />
-                <span className="text-sm font-medium text-espresso">
-                  {cat.name}
-                </span>
-              </label>
-            ))}
+          <div className="mt-6 space-y-2" role="group" aria-label="Categories">
+            {categories.map((cat) => {
+              const selected = selectedIds.includes(cat.id);
+              return (
+                <button
+                  key={cat.id}
+                  type="button"
+                  aria-pressed={selected}
+                  onClick={() => toggleCategory(cat.id)}
+                  className={`flex w-full items-center gap-3 rounded-xl border px-4 py-3 text-left transition-colors ${
+                    selected
+                      ? "border-terracotta bg-terracotta/10"
+                      : "border-sand bg-white hover:border-terracotta/30"
+                  }`}
+                >
+                  <span
+                    aria-hidden="true"
+                    className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-sm border ${
+                      selected
+                        ? "border-terracotta bg-terracotta text-white"
+                        : "border-espresso/30 bg-white"
+                    }`}
+                  >
+                    {selected ? (
+                      <svg viewBox="0 0 12 12" className="h-3 w-3" fill="none">
+                        <path
+                          d="M2.5 6.2 4.8 8.5 9.5 3.5"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    ) : null}
+                  </span>
+                  <span className="text-sm font-medium text-espresso">
+                    {cat.name}
+                  </span>
+                </button>
+              );
+            })}
           </div>
         )}
 
