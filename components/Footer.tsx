@@ -21,17 +21,17 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/browse" className="hover:text-terracotta">
-                  Browse dresses
+                  Browse clothing
                 </Link>
               </li>
               <li>
                 <Link href="/liked" className="hover:text-terracotta">
-                  Liked dresses
+                  Liked clothing
                 </Link>
               </li>
               <li>
                 <Link href="/disliked" className="hover:text-terracotta">
-                  Disliked dresses
+                  Disliked clothing
                 </Link>
               </li>
               <li>

@@ -18,9 +18,9 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Kraft Klothing — Rent Dresses & One-Time Wear",
+  title: "Kraft Klothing — Rent Clothing & One-Time Wear",
   description:
-    "Peer-to-peer dress rental marketplace. Find statement pieces for weddings, galas, and special occasions.",
+    "Peer-to-peer clothing rental marketplace. Find statement pieces for weddings, galas, and special occasions.",
 };
 
 export default function RootLayout({

@@ -14,8 +14,8 @@ export default function BrowsePage() {
       <div className="mt-8 max-w-xl">
         <h1 className="font-serif text-4xl text-espresso">Browse</h1>
         <p className="mt-3 text-espresso/60">
-          Like ♥ or pass ✕ on each dress. Once you choose, it moves to your
-          liked or disliked list.
+          Like ♥ or pass ✕ on each clothing item. Once you choose, it moves to
+          your liked or disliked list.
         </p>
       </div>
 

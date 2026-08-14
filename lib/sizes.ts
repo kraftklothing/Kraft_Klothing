@@ -1,7 +1,7 @@
 /** Letter / alpha sizes for listings. */
 export const LETTER_SIZES = ["XS", "S", "M", "L", "XL", "XXL"] as const;
 
-/** US numeric dress sizes (even numbers). */
+/** US numeric clothing sizes (even numbers). */
 export const NUMERIC_SIZES = [
   "0",
   "2",

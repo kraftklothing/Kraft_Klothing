@@ -51,7 +51,7 @@ export default function DressGrid({
           href="/browse"
           className="mt-6 inline-block rounded-full bg-espresso px-6 py-3 text-sm font-medium text-cream transition-colors hover:bg-terracotta"
         >
-          Browse dresses
+          Browse clothing
         </Link>
       </div>
     );
@@ -68,7 +68,7 @@ export default function DressGrid({
             {dress.images[0] && (
               <Image
                 src={dress.images[0]}
-                alt={`${dress.brand} dress`}
+                alt={`${dress.brand} clothing`}
                 fill
                 className="object-cover"
                 unoptimized
@@ -156,7 +156,7 @@ export default function DressGrid({
                   onClick={() => onRelike(dress.id)}
                   className="w-full rounded-full border border-sand py-2.5 text-sm font-medium transition-colors hover:border-terracotta hover:bg-terracotta/10"
                 >
-                  ♥ Like this dress
+                  ♥ Like this clothing
                 </button>
               )}
             </div>

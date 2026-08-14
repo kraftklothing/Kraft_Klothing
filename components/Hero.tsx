@@ -11,12 +11,12 @@ export default function Hero() {
             One-time wear, zero waste
           </p>
           <h1 className="mt-4 font-serif text-5xl leading-[1.1] text-espresso md:text-6xl">
-            Wear the dress.
+            Wear the clothing.
             <br />
             <span className="text-terracotta">Skip the price tag.</span>
           </h1>
           <p className="mt-6 max-w-md text-base leading-relaxed text-espresso/70">
-            Kraft Klothing connects you with beautiful dresses and one-time
+            Kraft Klothing connects you with beautiful clothing and one-time
             wear pieces from real closets near you. Perfect for weddings,
             galas, and every special moment in between.
           </p>
