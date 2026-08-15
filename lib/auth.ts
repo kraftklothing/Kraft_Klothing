@@ -6,6 +6,11 @@ export const USERS_STORAGE_KEY = "kraft-klothing-users";
 const MODERATOR_USERNAME = "ked2000";
 const MODERATOR_PASSWORD = "swimmingwolvesrock510";
 
+/** First normal shopper account. */
+const SHOPPER_USERNAME = "yusorawad";
+const SHOPPER_PASSWORD = "Yusoristurd69";
+const SHOPPER_DISPLAY_NAME = "YusorAwad";
+
 /** Temp shopper account — can browse/rent in demo mode without locking inventory. */
 const SANDBOX_USERNAME = "shopperpogger";
 const SANDBOX_PASSWORD = "poggershopper";
@@ -87,7 +92,11 @@ export function signUp(username: string, password: string): AuthSession | { erro
   if (password.length < 6) {
     return { error: "Password must be at least 6 characters." };
   }
-  if (normalized === MODERATOR_USERNAME || normalized === SANDBOX_USERNAME) {
+  if (
+    normalized === MODERATOR_USERNAME ||
+    normalized === SANDBOX_USERNAME ||
+    normalized === SHOPPER_USERNAME
+  ) {
     return { error: "This username is reserved." };
   }
 
@@ -118,6 +127,13 @@ export function login(
     password === MODERATOR_PASSWORD
   ) {
     return saveSession({ username: "Ked2000", role: "moderator" });
+  }
+
+  if (
+    normalized === SHOPPER_USERNAME &&
+    password === SHOPPER_PASSWORD
+  ) {
+    return saveSession({ username: SHOPPER_DISPLAY_NAME, role: "user" });
   }
 
   if (
