@@ -28,8 +28,16 @@ export default function BrowseGrid() {
   const [likeTarget, setLikeTarget] = useState<string | null>(null);
 
   function refresh() {
-    const reviewed = new Set([...getLikedIds(), ...getDislikedIds()]);
-    setDresses(getAllDresses().filter((dress) => !reviewed.has(dress.id)));
+    const allDresses = getAllDresses();
+    if (!session) {
+      setDresses(allDresses);
+      return;
+    }
+    const reviewed = new Set([
+      ...getLikedIds(username),
+      ...getDislikedIds(username),
+    ]);
+    setDresses(allDresses.filter((dress) => !reviewed.has(dress.id)));
   }
 
   useEffect(() => {
@@ -44,7 +52,7 @@ export default function BrowseGrid() {
       window.removeEventListener("kraft-dresses-updated", refresh);
       window.removeEventListener("kraft-preferences-updated", refresh);
     };
-  }, [username]);
+  }, [username, session]);
 
   const filteredDresses = useMemo(() => {
     if (categoryFilter === "all") return dresses;
@@ -67,7 +75,7 @@ export default function BrowseGrid() {
 
   function confirmLike(categoryIds: string[]) {
     if (likeTarget) {
-      likeDress(likeTarget, categoryIds);
+      likeDress(username, likeTarget, categoryIds);
       setLikeTarget(null);
       refresh();
     }
@@ -75,7 +83,7 @@ export default function BrowseGrid() {
 
   function handleDislike(id: string) {
     if (!requireLogin()) return;
-    dislikeDress(id);
+    dislikeDress(username, id);
     refresh();
   }
 

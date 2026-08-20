@@ -23,7 +23,7 @@ function DislikedContent() {
 
   useEffect(() => {
     setMounted(true);
-    const refresh = () => setDislikedIds(getDislikedIds());
+    const refresh = () => setDislikedIds(getDislikedIds(username));
     void loadDresses().then(refresh);
     window.addEventListener("kraft-preferences-updated", refresh);
     window.addEventListener("kraft-dresses-updated", refresh);
@@ -31,7 +31,7 @@ function DislikedContent() {
       window.removeEventListener("kraft-preferences-updated", refresh);
       window.removeEventListener("kraft-dresses-updated", refresh);
     };
-  }, []);
+  }, [username]);
 
   const filteredIds = useMemo(() => {
     if (categoryFilter === "all") return dislikedIds;
@@ -51,10 +51,10 @@ function DislikedContent() {
 
   function confirmRelike(categoryIds: string[]) {
     if (relikeTarget) {
-      removeFromDisliked(relikeTarget);
-      likeDress(relikeTarget, categoryIds);
+      removeFromDisliked(username, relikeTarget);
+      likeDress(username, relikeTarget, categoryIds);
       setRelikeTarget(null);
-      setDislikedIds(getDislikedIds());
+      setDislikedIds(getDislikedIds(username));
     }
   }
 
