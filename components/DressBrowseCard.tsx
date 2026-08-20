@@ -37,15 +37,20 @@ export default function DressBrowseCard({
       </div>
 
       <div className="p-4">
-        <div className="flex items-baseline justify-between gap-3">
-          <p className="text-xs uppercase tracking-wider text-espresso/50">
-            {dress.brand}
-          </p>
+        <div className="flex items-start justify-between gap-3">
           {dress.name ? (
-            <p className="text-right text-sm font-medium text-espresso">
-              {dress.name}
+            <p className="text-sm font-medium text-espresso">{dress.name}</p>
+          ) : (
+            <span />
+          )}
+          <div className="text-right">
+            <p className="text-xs uppercase tracking-wider text-espresso/50">
+              {dress.brand}
             </p>
-          ) : null}
+            {dress.color ? (
+              <p className="mt-0.5 text-xs text-espresso/60">{dress.color}</p>
+            ) : null}
+          </div>
         </div>
 
         <div className="mt-3 space-y-1 text-sm text-espresso/70">
