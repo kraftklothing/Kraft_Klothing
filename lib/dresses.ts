@@ -13,6 +13,8 @@ function normalizeDress(dress: Dress): Dress {
     name: typeof dress.name === "string" ? dress.name.trim() : "",
     size: dress.size ?? "Unknown",
     category: normalizeListingCategory(dress.category),
+    deposit: Number(dress.deposit) || 0,
+    cleaningCharge: Number(dress.cleaningCharge) || 0,
   };
 }
 

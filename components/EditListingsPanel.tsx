@@ -143,7 +143,15 @@ export default function EditListingsPanel() {
                       </p>
                       <p className="text-sm text-espresso/60">
                         {dress.category} · Size {dress.size} ·{" "}
-                        {formatPrice(dress.pricePerMonth)}/mo
+                        {formatPrice(dress.pricePerMonth)}/mo · Deposit{" "}
+                        {formatPrice(dress.deposit)}
+                        {dress.cleaningCharge > 0 && (
+                          <>
+                            {" "}
+                            · Cleaning Charge{" "}
+                            {formatPrice(dress.cleaningCharge)}
+                          </>
+                        )}
                       </p>
                     </div>
                     <div className="mt-3 flex gap-2 sm:mt-0">

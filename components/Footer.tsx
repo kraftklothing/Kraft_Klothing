@@ -49,7 +49,7 @@ export default function Footer() {
             <ol className="mt-4 space-y-2 text-sm text-espresso/70">
               <li>1. Browse the inventory, store your favories, clear out the clutter</li>
               <li>2. Book your rental dates</li>
-              <li>3. Wear it & return clean</li>
+              <li>3. Wear it & return — Cleaning Charge comes from deposit</li>
             </ol>
           </div>
         </div>

@@ -32,6 +32,8 @@ function normalizeDresses(value: unknown): Dress[] {
       size: dress.size ?? "Unknown",
       category: normalizeListingCategory(dress.category),
       images: Array.isArray(dress.images) ? dress.images : [],
+      deposit: Number(dress.deposit) || 0,
+      cleaningCharge: Number(dress.cleaningCharge) || 0,
     }));
 }
 

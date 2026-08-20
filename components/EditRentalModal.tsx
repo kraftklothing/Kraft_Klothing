@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import RentalPricingBreakdown from "@/components/RentalPricingBreakdown";
 import { formatPrice, getDressById } from "@/lib/dresses";
 import {
   getBookedMonthsForDressExcluding,
@@ -94,7 +95,14 @@ export default function EditRentalModal({
         <p className="mt-1 text-sm text-espresso/60">
           {dress.brand}
           {dress.name ? ` · ${dress.name}` : ""} · Size {dress.size} ·{" "}
-          {formatPrice(dress.pricePerMonth)}/month
+          {formatPrice(dress.pricePerMonth)}/month · Deposit{" "}
+          {formatPrice(dress.deposit)}
+          {dress.cleaningCharge > 0 && (
+            <>
+              {" "}
+              · Cleaning Charge {formatPrice(dress.cleaningCharge)}
+            </>
+          )}
         </p>
 
         <form onSubmit={handleSubmit} className="mt-6 space-y-6">
@@ -141,14 +149,10 @@ export default function EditRentalModal({
           </label>
 
           {selectedMonths.length > 0 && (
-            <div className="rounded-xl bg-sand/50 px-4 py-3 text-sm text-espresso/70">
-              Total:{" "}
-              <strong>
-                {formatPrice(dress.pricePerMonth * selectedMonths.length)}
-              </strong>{" "}
-              for {selectedMonths.length}{" "}
-              {selectedMonths.length === 1 ? "month" : "months"}
-            </div>
+            <RentalPricingBreakdown
+              dress={dress}
+              monthCount={selectedMonths.length}
+            />
           )}
 
           {error && <p className="text-sm text-red-600">{error}</p>}

@@ -43,7 +43,7 @@ export default function AboutPage() {
               <li>Pickup</li>
               <li>Wear</li>
               <li>Drop off</li>
-              <li>Get deposit (less cleaning/damage costs) back</li>
+              <li>Get deposit (less Cleaning Charge and damage) back</li>
             </ul>
           </li>
         </ol>
@@ -57,16 +57,19 @@ export default function AboutPage() {
           </li>
           <li>
             Items must be returned in the same condition you received them, or
-            else the cleaning fees will be removed from your deposit.
+            else the Cleaning Charge will be removed from your deposit.
           </li>
           <li>Late returns may incur additional daily fees.</li>
-          <li>A refundable security deposit may apply (coming in full release).</li>
+          <li>A refundable security deposit applies to each rental.</li>
         </ul>
       </PolicySection>
 
       <PolicySection title="Returns & care">
         <ul className="list-disc space-y-2 pl-5">
-          <li>Return items clean — dry cleaning is the renter&apos;s responsibility unless stated otherwise.</li>
+          <li>
+            We dry clean items after each rental — Cleaning Charge comes from
+            deposit.
+          </li>
           <li>Report any issues within 24 hours of receiving the item.</li>
         </ul>
       </PolicySection>
