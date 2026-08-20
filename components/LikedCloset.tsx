@@ -44,7 +44,7 @@ export default function LikedCloset() {
 
   function refresh() {
     ensureAccountDefaults(username);
-    setLiked(getLiked());
+    setLiked(getLiked(username));
     setCategories(getCategories(username));
     setFitLabelOptions(getFitLabels(username));
   }
@@ -122,12 +122,12 @@ export default function LikedCloset() {
   }, [liked]);
 
   function handleFitLabelChange(dressId: string, labelId: string) {
-    updateLikedDress(dressId, { fitLabel: labelId });
+    updateLikedDress(username, dressId, { fitLabel: labelId });
     refresh();
   }
 
   function handleUnlike(dressId: string) {
-    removeFromLiked(dressId);
+    removeFromLiked(username, dressId);
     refresh();
   }
 
