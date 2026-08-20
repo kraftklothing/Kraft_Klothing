@@ -95,7 +95,10 @@ export default function MonthlyBundleDemo() {
   return (
     <section className="relative mx-auto max-w-4xl px-6 pb-16 pt-4 md:pb-24 md:pt-6">
       <div className="border-t border-walnut/15 pt-10 md:pt-12">
-        <h2 className="mx-auto max-w-2xl text-center font-serif text-2xl leading-snug text-cocoa sm:text-3xl md:text-4xl">
+        <p className="mx-auto max-w-2xl text-center font-serif text-lg leading-snug text-cocoa sm:text-xl md:text-2xl">
+          Example of how far 50$ in a month could go
+        </p>
+        <h2 className="mx-auto mt-4 max-w-2xl text-center font-serif text-2xl leading-snug text-cocoa sm:text-3xl md:text-4xl">
           Instead of buying a new piece each month, rent 50$ of new pieces each
           month
         </h2>
@@ -103,6 +106,17 @@ export default function MonthlyBundleDemo() {
           Each example is a random closet under {formatPrice(MONTHLY_BUDGET)} for
           one month — about what a single new shirt might cost to buy.
         </p>
+
+        <div className="mt-6 flex justify-center md:mt-8">
+          <button
+            type="button"
+            onClick={refreshBundle}
+            disabled={loading || !hasInventory}
+            className="border border-walnut/35 bg-transparent px-6 py-2.5 text-sm font-medium uppercase tracking-[0.2em] text-walnut transition-colors hover:border-walnut hover:bg-walnut/10 disabled:cursor-not-allowed disabled:opacity-40"
+          >
+            shuffle example
+          </button>
+        </div>
 
         <div className="mt-8 md:mt-10">
           {loading ? (
@@ -168,17 +182,6 @@ export default function MonthlyBundleDemo() {
             <span className="text-base text-cocoa/55"> / month</span>
           </p>
         )}
-
-        <div className="mt-6 flex justify-center md:mt-8">
-          <button
-            type="button"
-            onClick={refreshBundle}
-            disabled={loading || !hasInventory}
-            className="border border-walnut/35 bg-transparent px-6 py-2.5 text-sm font-medium uppercase tracking-[0.2em] text-walnut transition-colors hover:border-walnut hover:bg-walnut/10 disabled:cursor-not-allowed disabled:opacity-40"
-          >
-            New example
-          </button>
-        </div>
       </div>
     </section>
   );
