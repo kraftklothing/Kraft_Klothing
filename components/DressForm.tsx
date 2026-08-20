@@ -34,6 +34,12 @@ export default function DressForm({ dress, listedBy, onSuccess }: DressFormProps
   const [pricePerMonth, setPricePerMonth] = useState(
     dress ? String(dress.pricePerMonth) : ""
   );
+  const [deposit, setDeposit] = useState(
+    dress ? String(dress.deposit) : ""
+  );
+  const [cleaningCharge, setCleaningCharge] = useState(
+    dress ? String(dress.cleaningCharge) : ""
+  );
   const [submitting, setSubmitting] = useState(false);
   const [cropSource, setCropSource] = useState<string | null>(null);
 
@@ -74,6 +80,8 @@ export default function DressForm({ dress, listedBy, onSuccess }: DressFormProps
       size: size.trim(),
       category,
       pricePerMonth: Number(pricePerMonth),
+      deposit: Number(deposit),
+      cleaningCharge: Number(cleaningCharge),
       listedBy,
     };
 
@@ -248,6 +256,39 @@ export default function DressForm({ dress, listedBy, onSuccess }: DressFormProps
             placeholder="45"
             className="mt-1.5 w-full rounded-xl border border-sand bg-white px-4 py-3 text-sm outline-none focus:border-terracotta"
           />
+        </label>
+
+        <label className="block">
+          <span className="text-xs font-medium uppercase tracking-wider text-espresso/50">
+            Deposit ($)
+          </span>
+          <input
+            type="number"
+            required
+            min={0}
+            value={deposit}
+            onChange={(e) => setDeposit(e.target.value)}
+            placeholder="50"
+            className="mt-1.5 w-full rounded-xl border border-sand bg-white px-4 py-3 text-sm outline-none focus:border-terracotta"
+          />
+        </label>
+
+        <label className="block">
+          <span className="text-xs font-medium uppercase tracking-wider text-espresso/50">
+            Cleaning Charge ($)
+          </span>
+          <input
+            type="number"
+            required
+            min={0}
+            value={cleaningCharge}
+            onChange={(e) => setCleaningCharge(e.target.value)}
+            placeholder="15"
+            className="mt-1.5 w-full rounded-xl border border-sand bg-white px-4 py-3 text-sm outline-none focus:border-terracotta"
+          />
+          <span className="mt-1 block text-xs text-espresso/40">
+            One Cleaning Charge per rental, deducted from deposit on return.
+          </span>
         </label>
 
         <button

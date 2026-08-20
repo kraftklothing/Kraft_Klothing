@@ -59,6 +59,14 @@ export async function PATCH(request: Request, context: RouteContext) {
     category: normalizeListingCategory(
       updates.category ?? dresses[index].category
     ),
+    deposit:
+      updates.deposit !== undefined
+        ? Number(updates.deposit) || 0
+        : dresses[index].deposit ?? 0,
+    cleaningCharge:
+      updates.cleaningCharge !== undefined
+        ? Number(updates.cleaningCharge) || 0
+        : dresses[index].cleaningCharge ?? 0,
   };
 
   await writeSharedDresses(dresses);

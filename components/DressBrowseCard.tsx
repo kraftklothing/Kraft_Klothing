@@ -60,6 +60,16 @@ export default function DressBrowseCard({
             {formatPrice(dress.pricePerMonth)}
             <span className="text-espresso/50">/month</span>
           </p>
+          <p>
+            <span className="text-espresso/50">Deposit:</span>{" "}
+            {formatPrice(dress.deposit)}
+          </p>
+          {dress.cleaningCharge > 0 && (
+            <p>
+              <span className="text-espresso/50">Cleaning Charge:</span>{" "}
+              {formatPrice(dress.cleaningCharge)}
+            </p>
+          )}
         </div>
 
         <div className="mt-4 flex gap-3">

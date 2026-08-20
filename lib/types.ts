@@ -9,6 +9,10 @@ export type Dress = {
   /** Inventory taxonomy used for filtering across views. */
   category: string;
   pricePerMonth: number;
+  /** Refundable security deposit charged upfront. */
+  deposit: number;
+  /** One Cleaning Charge per rental, deducted from deposit on return. */
+  cleaningCharge: number;
   listedAt: string;
   listedBy: string;
 };
