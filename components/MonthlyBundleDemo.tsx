@@ -96,14 +96,16 @@ export default function MonthlyBundleDemo() {
     <section className="relative mx-auto max-w-4xl px-6 pb-16 pt-4 md:pb-24 md:pt-6">
       <div className="border-t border-walnut/15 pt-10 md:pt-12">
         <p className="mx-auto max-w-2xl text-center text-xs font-medium uppercase tracking-[0.22em] text-walnut/70">
-          Sample only · not a required spend
+          Any amount · rent as little or as much as you want
         </p>
         <h2 className="mx-auto mt-3 max-w-2xl text-center font-serif text-2xl leading-snug text-cocoa sm:text-3xl md:text-4xl">
-          What a {formatPrice(MONTHLY_BUDGET)} month could look like
+          It doesn&apos;t have to be {formatPrice(MONTHLY_BUDGET)} — here&apos;s
+          just one example
         </h2>
         <p className="mx-auto mt-4 max-w-xl text-center text-sm leading-relaxed text-cocoa/65 md:text-base">
-          There&apos;s no minimum and no subscription — rent only the pieces you
-          want. Below is one random sample closet under{" "}
+          Spend {formatPrice(10)}, {formatPrice(MONTHLY_BUDGET)},{" "}
+          {formatPrice(100)}, or any other amount each month — there&apos;s no
+          minimum and no subscription. Below is one random sample closet under{" "}
           {formatPrice(MONTHLY_BUDGET)} for a month, about what a single new
           shirt might cost to buy.
         </p>
