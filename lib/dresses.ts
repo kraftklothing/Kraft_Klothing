@@ -15,6 +15,8 @@ function normalizeDress(dress: Dress): Dress {
     category: normalizeListingCategory(dress.category),
     deposit: Number(dress.deposit) || 0,
     cleaningCharge: Number(dress.cleaningCharge) || 0,
+    source: typeof dress.source === "string" ? dress.source.trim() : "",
+    purchasePrice: Number(dress.purchasePrice) || 0,
   };
 }
 
@@ -238,6 +240,16 @@ export function formatPrice(amount: number): string {
     style: "currency",
     currency: "USD",
     maximumFractionDigits: 0,
+  }).format(amount);
+}
+
+/** Currency with cents for cost / profit tracking. */
+export function formatMoney(amount: number): string {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2,
   }).format(amount);
 }
 

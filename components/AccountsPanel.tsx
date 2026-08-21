@@ -15,7 +15,7 @@ const ROLE_ORDER: UserRole[] = ["moderator", "user", "sandbox"];
 function roleHint(role: UserRole): string {
   switch (role) {
     case "moderator":
-      return "List/edit dresses, pack rentals, manage accounts";
+      return "List/edit clothing, Sales tracking, pack rentals, manage accounts";
     case "sandbox":
       return "Demo access — rentals do not reserve inventory";
     case "user":

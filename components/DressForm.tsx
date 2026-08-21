@@ -40,6 +40,10 @@ export default function DressForm({ dress, listedBy, onSuccess }: DressFormProps
   const [cleaningCharge, setCleaningCharge] = useState(
     dress ? String(dress.cleaningCharge) : ""
   );
+  const [source, setSource] = useState(dress?.source ?? "");
+  const [purchasePrice, setPurchasePrice] = useState(
+    dress ? String(dress.purchasePrice ?? "") : ""
+  );
   const [submitting, setSubmitting] = useState(false);
   const [cropSource, setCropSource] = useState<string | null>(null);
 
@@ -82,6 +86,8 @@ export default function DressForm({ dress, listedBy, onSuccess }: DressFormProps
       pricePerMonth: Number(pricePerMonth),
       deposit: Number(deposit),
       cleaningCharge: Number(cleaningCharge),
+      source: source.trim(),
+      purchasePrice: Number(purchasePrice) || 0,
       listedBy,
     };
 
@@ -288,6 +294,40 @@ export default function DressForm({ dress, listedBy, onSuccess }: DressFormProps
           />
           <span className="mt-1 block text-xs text-espresso/40">
             One Cleaning Charge per rental, deducted from deposit on return.
+          </span>
+        </label>
+
+        <label className="block">
+          <span className="text-xs font-medium uppercase tracking-wider text-espresso/50">
+            Purchase source
+          </span>
+          <input
+            type="text"
+            value={source}
+            onChange={(e) => setSource(e.target.value)}
+            placeholder="e.g. Thrift store, Reformation outlet, Depop"
+            className="mt-1.5 w-full rounded-xl border border-sand bg-white px-4 py-3 text-sm outline-none focus:border-terracotta"
+          />
+          <span className="mt-1 block text-xs text-espresso/40">
+            Where you bought this piece — used on the Sales tab.
+          </span>
+        </label>
+
+        <label className="block">
+          <span className="text-xs font-medium uppercase tracking-wider text-espresso/50">
+            Purchase price ($)
+          </span>
+          <input
+            type="number"
+            min={0}
+            step="0.01"
+            value={purchasePrice}
+            onChange={(e) => setPurchasePrice(e.target.value)}
+            placeholder="28"
+            className="mt-1.5 w-full rounded-xl border border-sand bg-white px-4 py-3 text-sm outline-none focus:border-terracotta"
+          />
+          <span className="mt-1 block text-xs text-espresso/40">
+            What you paid for the item. Profit = rental earnings − this cost.
           </span>
         </label>
 

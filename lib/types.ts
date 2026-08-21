@@ -13,6 +13,10 @@ export type Dress = {
   deposit: number;
   /** One Cleaning Charge per rental, deducted from deposit on return. */
   cleaningCharge: number;
+  /** Where the item was purchased (store, thrift, brand site, etc.). */
+  source: string;
+  /** What was paid to acquire the item. */
+  purchasePrice: number;
   listedAt: string;
   listedBy: string;
 };
