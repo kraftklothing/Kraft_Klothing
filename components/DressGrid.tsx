@@ -132,12 +132,10 @@ export default function DressGrid({
                   <span className="text-espresso/50">Deposit:</span>{" "}
                   {formatPrice(dress.deposit)}
                 </p>
-                {dress.cleaningCharge > 0 && (
-                  <p>
-                    <span className="text-espresso/50">Cleaning Charge:</span>{" "}
-                    {formatPrice(dress.cleaningCharge)}
-                  </p>
-                )}
+                <p>
+                  <span className="text-espresso/50">Cleaning Charge:</span>{" "}
+                  {formatPrice(dress.cleaningCharge)}
+                </p>
               </div>
             </div>
 
