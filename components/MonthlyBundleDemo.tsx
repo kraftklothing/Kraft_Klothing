@@ -99,7 +99,7 @@ export default function MonthlyBundleDemo() {
           Sample only · not a required spend
         </p>
         <h2 className="mx-auto mt-3 max-w-2xl text-center font-serif text-2xl leading-snug text-cocoa sm:text-3xl md:text-4xl">
-          How far could {formatPrice(MONTHLY_BUDGET)} take your wardrobe?
+          What a {formatPrice(MONTHLY_BUDGET)} month could look like
         </h2>
         <p className="mx-auto mt-4 max-w-xl text-center text-sm leading-relaxed text-cocoa/65 md:text-base">
           There&apos;s no minimum and no subscription — rent only the pieces you
