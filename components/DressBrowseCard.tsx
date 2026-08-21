@@ -53,28 +53,33 @@ export default function DressBrowseCard({
           </div>
         </div>
 
-        <div className="mt-3 space-y-1 text-sm text-espresso/70">
-          <p>
-            <span className="text-espresso/50">Category:</span> {dress.category}
-          </p>
-          <p>
-            <span className="text-espresso/50">Size:</span> {dress.size}
-          </p>
-          <p>
-            <span className="text-espresso/50">Price:</span>{" "}
-            {formatPrice(dress.pricePerMonth)}
-            <span className="text-espresso/50">/month</span>
-          </p>
-          <p>
-            <span className="text-espresso/50">Deposit:</span>{" "}
-            {formatPrice(dress.deposit)}
-          </p>
-          {dress.cleaningCharge > 0 && (
+        <div className="mt-3 flex items-end justify-between gap-3 text-sm text-espresso/70">
+          <div className="space-y-1">
             <p>
-              <span className="text-espresso/50">Cleaning Charge:</span>{" "}
-              {formatPrice(dress.cleaningCharge)}
+              <span className="text-espresso/50">Category:</span>{" "}
+              {dress.category}
             </p>
-          )}
+            <p>
+              <span className="text-espresso/50">Size:</span> {dress.size}
+            </p>
+          </div>
+          <div className="space-y-1 text-right">
+            <p>
+              <span className="text-espresso/50">Price:</span>{" "}
+              {formatPrice(dress.pricePerMonth)}
+              <span className="text-espresso/50">/month</span>
+            </p>
+            <p>
+              <span className="text-espresso/50">Deposit:</span>{" "}
+              {formatPrice(dress.deposit)}
+            </p>
+            {dress.cleaningCharge > 0 && (
+              <p>
+                <span className="text-espresso/50">Cleaning Charge:</span>{" "}
+                {formatPrice(dress.cleaningCharge)}
+              </p>
+            )}
+          </div>
         </div>
 
         <div className="mt-4 flex gap-3">
