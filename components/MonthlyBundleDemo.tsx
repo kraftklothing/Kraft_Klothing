@@ -95,16 +95,17 @@ export default function MonthlyBundleDemo() {
   return (
     <section className="relative mx-auto max-w-4xl px-6 pb-16 pt-4 md:pb-24 md:pt-6">
       <div className="border-t border-walnut/15 pt-10 md:pt-12">
-        <p className="mx-auto max-w-2xl text-center font-serif text-lg leading-snug text-cocoa sm:text-xl md:text-2xl">
-          Example of how far 50$ in a month could go
+        <p className="mx-auto max-w-2xl text-center text-xs font-medium uppercase tracking-[0.22em] text-walnut/70">
+          Sample only · not a required spend
         </p>
-        <h2 className="mx-auto mt-4 max-w-2xl text-center font-serif text-2xl leading-snug text-cocoa sm:text-3xl md:text-4xl">
-          Instead of buying a new piece each month, rent 50$ of new pieces each
-          month
+        <h2 className="mx-auto mt-3 max-w-2xl text-center font-serif text-2xl leading-snug text-cocoa sm:text-3xl md:text-4xl">
+          What a {formatPrice(MONTHLY_BUDGET)} month could look like
         </h2>
         <p className="mx-auto mt-4 max-w-xl text-center text-sm leading-relaxed text-cocoa/65 md:text-base">
-          Each example is a random closet under {formatPrice(MONTHLY_BUDGET)} for
-          one month — about what a single new shirt might cost to buy.
+          There&apos;s no minimum and no subscription — rent only the pieces you
+          want. Below is one random sample closet under{" "}
+          {formatPrice(MONTHLY_BUDGET)} for a month, about what a single new
+          shirt might cost to buy.
         </p>
 
         <div className="mt-6 flex justify-center md:mt-8">
@@ -177,8 +178,8 @@ export default function MonthlyBundleDemo() {
 
         {!loading && bundle.length > 0 && (
           <p className="mt-8 text-center font-serif text-xl text-cocoa md:text-2xl">
-            {bundle.length} piece{bundle.length === 1 ? "" : "s"} ·{" "}
-            {formatPrice(total)}
+            Sample month · {bundle.length} piece
+            {bundle.length === 1 ? "" : "s"} · {formatPrice(total)}
             <span className="text-base text-cocoa/55"> / month</span>
           </p>
         )}
