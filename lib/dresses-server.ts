@@ -34,6 +34,8 @@ function normalizeDresses(value: unknown): Dress[] {
       images: Array.isArray(dress.images) ? dress.images : [],
       deposit: Number(dress.deposit) || 0,
       cleaningCharge: Number(dress.cleaningCharge) || 0,
+      source: typeof dress.source === "string" ? dress.source.trim() : "",
+      purchasePrice: Number(dress.purchasePrice) || 0,
     }));
 }
 

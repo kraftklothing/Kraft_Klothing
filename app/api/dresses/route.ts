@@ -53,6 +53,8 @@ export async function POST(request: Request) {
         images: Array.isArray(dress.images) ? dress.images : [],
         deposit: Number(dress.deposit) || 0,
         cleaningCharge: Number(dress.cleaningCharge) || 0,
+        source: typeof dress.source === "string" ? dress.source.trim() : "",
+        purchasePrice: Number(dress.purchasePrice) || 0,
       });
     }
     const merged = Array.from(byId.values()).sort((a, b) =>
@@ -92,6 +94,8 @@ export async function POST(request: Request) {
     pricePerMonth: Number(dress.pricePerMonth) || 0,
     deposit: Number(dress.deposit) || 0,
     cleaningCharge: Number(dress.cleaningCharge) || 0,
+    source: typeof dress.source === "string" ? dress.source.trim() : "",
+    purchasePrice: Number(dress.purchasePrice) || 0,
     listedBy: String(dress.listedBy).trim(),
     id: crypto.randomUUID(),
     listedAt: new Date().toISOString(),

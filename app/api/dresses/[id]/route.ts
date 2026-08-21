@@ -67,6 +67,14 @@ export async function PATCH(request: Request, context: RouteContext) {
       updates.cleaningCharge !== undefined
         ? Number(updates.cleaningCharge) || 0
         : dresses[index].cleaningCharge ?? 0,
+    source:
+      updates.source !== undefined
+        ? String(updates.source).trim()
+        : dresses[index].source ?? "",
+    purchasePrice:
+      updates.purchasePrice !== undefined
+        ? Number(updates.purchasePrice) || 0
+        : dresses[index].purchasePrice ?? 0,
   };
 
   await writeSharedDresses(dresses);

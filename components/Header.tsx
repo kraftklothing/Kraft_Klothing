@@ -60,6 +60,12 @@ export default function Header() {
                 <span className="hidden sm:inline">Edit listings</span>
               </Link>
               <Link
+                href="/sales"
+                className="whitespace-nowrap rounded-full border border-terracotta px-2.5 py-1 text-[11px] font-medium text-terracotta transition-colors hover:bg-terracotta hover:text-cream sm:px-4 sm:py-1.5 sm:text-sm"
+              >
+                Sales
+              </Link>
+              <Link
                 href="/accounts"
                 className="whitespace-nowrap rounded-full border border-terracotta px-2.5 py-1 text-[11px] font-medium text-terracotta transition-colors hover:bg-terracotta hover:text-cream sm:px-4 sm:py-1.5 sm:text-sm"
               >
